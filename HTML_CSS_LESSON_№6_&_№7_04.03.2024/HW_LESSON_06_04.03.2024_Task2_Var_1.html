@@ -1,0 +1,136 @@
+<!--
+ДОМАШНЕЕ ЗАДАНИЕ - ДАТА ВЫПОЛНЕНИЯ 04.03.2024 (УРОК от 04.03.2024)
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Курс: Разработка Web-приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка веб-страниц на языке разметки HTML5 с использованием каскадных таблиц стилей CSS3
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Домашнее задание №6: Позиционирование
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполните следующие задания:
+
+Задание 1.
+Создать stiky контейнер, который будет закреплен сверху. При прокрутке контент должен прокручиваться,
+а закрепленный контейнер не исчезать до определенной позиции.
+
+Задание 2.
+Создать небольшой каталог с продуктами.
+-->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполнение задания №1:
+-->
+<!--
+Код: - Задание 2.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог продуктов</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://n1s1.hsmedia.ru/e2/3a/55/e23a55370160b8c7efcbe6d8cdd5dc09/5000x3333_0xac120003_10770949691671565763.jpeg') center/cover no-repeat;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Задание 2: Каталог продуктов */
+    .product-card {
+      border: 1px solid #ddd;
+      margin: 10px;
+      padding: 10px;
+      width: 200px;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      background-color: white;
+    }
+
+    /* Пример стилей для карточки продукта */
+    .product-card:hover {
+      background-color: #f9f9f9;
+    }
+
+    .product-image {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Общие стили для описания продукта */
+    .product-description {
+      display: none;
+      margin-top: 10px;
+    }
+
+    /* Показываем описание при нажатии на карточку продукта */
+    .product-card:hover .product-description {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Задание 2: Каталог продуктов -->
+  <div class="product-card" onclick="toggleDescription('product1')">
+    <img class="product-image" src="https://nokta.md/wp-content/uploads/2020/12/1573799569696599180e3d2ba40e946d2a8d15d498a6c7b90e0_obv_foto_1573814715_1934096.jpg" alt="Молочные продукты и яйца">
+    <h3>Молочные продукты и яйца</h3>
+    <div class="product-description">
+      <p>Описание продукта или рецепт приготовления блюда.</p>
+    </div>
+  </div>
+
+  <div class="product-card" onclick="toggleDescription('product2')">
+    <img class="product-image" src="https://businessmir.kz/wp-content/uploads/2022/11/original_0.jpg" alt="Мясные продукты">
+    <h3>Мясные продукты</h3>
+    <div class="product-description">
+      <p>Описание продукта или рецепт приготовления блюда.</p>
+    </div>
+  </div>
+
+  <div class="product-card" onclick="toggleDescription('product3')">
+    <img class="product-image" src="https://xn----8sbnnbambfrmllc0aj3a1a.xn--p1ai/wp-content/uploads/2022/12/top-view-healthy-food-for-immunity-boosting-composition-1.jpg" alt="Овощи и фрукты">
+    <h3>Овощи и фрукты</h3>
+    <div class="product-description">
+      <p>Описание продукта или рецепт приготовления блюда.</p>
+    </div>
+  </div>
+
+  <div class="product-card" onclick="toggleDescription('product4')">
+    <img class="product-image" src="https://m.opt-union.ru/19586784/images/photocat/1000x1000/1004102734.jpg" alt="Замороженные продукты">
+    <h3>Замороженные продукты</h3>
+    <div class="product-description">
+      <p>Описание продукта или рецепт приготовления блюда.</p>
+    </div>
+  </div>
+
+  <div class="product-card" onclick="toggleDescription('product5')">
+    <img class="product-image" src="https://sotni.ru/wp-content/uploads/2023/08/bakaleia-2.webp" alt="Бакалея">
+    <h3>Бакалея</h3>
+    <div class="product-description">
+      <p>Описание продукта или рецепт приготовления блюда.</p>
+    </div>
+  </div>
+
+  <!-- Можно добавить еще карточки продуктов по аналогии -->
+
+  <script>
+    function toggleDescription(product) {
+      const description = document.querySelector(`.${product}-description`);
+      description.style.display = (description.style.display === 'none') ? 'block' : 'none';
+    }
+  </script>
+
+</body>
+</html>

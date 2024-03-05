@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .wrapper {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sticky {
+            background-color: #333;
+            color: #fff;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .list-inline {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .list-inline > li {
+            display: inline-block;
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+
+        .list-inline > li > a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+        .list-inline > li > a:hover {
+            color: #ffcc00;
+            background-color: #444;
+        }
+
+        .content {
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .section {
+            color: #ffffff;
+            height: 75vh;
+            margin: 0;
+            scroll-margin-top: 1em;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #a { background-color: #0074d9; }
+        #b { background-color: #2ecc40; }
+        #c { background-color: #ff851b; }
+        #d { background-color: #b10dc9; }
+
+        h2 {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <title>Sticky Container</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Закрепленный контейнер</h1>
+        </header>
+        <nav class="sticky">
+            <ul class="list-inline">
+                <li><a href="#a">Section A</a></li>
+                <li><a href="#b">Section B</a></li>
+                <li><a href="#c">Section C</a></li>
+                <li><a href="#d">Section D</a></li>
+            </ul>
+        </nav>
+        <main>
+            <article class="section" id="a"><h2>Section A</h2></article>
+            <article class="section" id="b"><h2>Section B</h2></article>
+            <article class="section" id="c"><h2>Section C</h2></article>
+            <article class="section" id="d"><h2>Section D</h2></article>
+        </main>
+        <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+        </div>
+    </div>
+</body>
+</html>

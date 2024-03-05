@@ -1,0 +1,139 @@
+<!--
+ПРАКТИЧЕСКАЯ РАБОТА - ДАТА ВЫПОЛНЕНИЯ 04.03.2024 (УРОК от 04.03.2024)
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Курс: Разработка Web-приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка веб-страниц на языке разметки HTML5 с использованием каскадных таблиц стилей CSS3
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Практическая работа №7: Flexible Box Layout Module
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполните следующие задания:
+
+Задание 1
+Создать меню с логотипов. С помощью свойствам гибкого контейнера, расставить как указано на картинке.
+Название разделов меню. сделать с помощью списков.
+
+Задание 2
+Создайте калькулятор.
+-->
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполнение задания №1:
+
+Код:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #444;
+            padding: 10px;
+        }
+
+        nav img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffd700; /* Цвет при наведении - жёлтый */
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ROК-носорог</h1>
+    </header>
+
+    <nav>
+        <div>
+            <img src="https://userscontent2.emaze.com/images/e6ac91de-f86f-4198-a65f-6c14b03b6c55/42457807-f62c-4625-b9c1-349e5dd783d6.png" alt="Logo">
+            <span>РОК-Носорог</span>
+        </div>
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Услуги</a></li>
+            <li><a href="#">Портфолио</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Музыкальные инструменты для рок-группы – что нужно на сцену?</h2>
+
+        <p> Как известно, многие рок-группы и другие музыканты начинали сочинять стихи и исполнять музыку благодаря
+            смекалке и минимальному набору музыкальных инструментов. У кого-то была только гитара, кто-то имел пианино,
+            а кому-то могли купить гармошку или что-то другое.</p>
+        <!-- Ваш контент здесь -->
+    </section>
+
+    <footer>
+        &copy; Copyright © 1997—2024.
+    </footer>
+
+</body>
+</html>

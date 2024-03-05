@@ -1,0 +1,473 @@
+<!--
+ДОМАШНЕЕ ЗАДАНИЕ - ДАТА ВЫПОЛНЕНИЯ 04.03.2024 (УРОК от 04.03.2024)
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Курс: Разработка Web-приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка веб-страниц на языке разметки HTML5 с использованием каскадных таблиц стилей CSS3
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Домашнее задание №7: Flexible Box Layout Module
+-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполните следующие задания:
+
+Задание 1
+Создать меню с логотипов. С помощью свойствам гибкого контейнера, расставить как указано на картинке.
+Название разделов меню. Сделать с помощью списков.
+
+Задание 2
+Создайте калькулятор.
+-->
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполнение задания №1:
+-->
+<!--
+Код:
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 1em;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .sections-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .section {
+            flex-basis: calc(33.33% - 20px);
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .section:hover {
+            background-color: #f0f0f0;
+        }
+
+        .section:hover .icon {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Техника безопасности</h1>
+
+    <div class="sections-container">
+        <div class="section">
+            <div class="icon">🚨</div>
+            <div class="text">Пожарная безопасность</div>
+        </div>
+        <div class="section">
+            <div class="icon">🔒</div>
+            <div class="text">Физическая безопасность</div>
+        </div>
+        <div class="section">
+            <div class="icon">🔐</div>
+            <div class="text">Информационная безопасность</div>
+        </div>
+    </div>
+
+    <h1>Информационная безопасность</h1>
+
+    <div class="sections-container">
+        <div class="section">
+            <div class="icon">🔐</div>
+            <div class="text">Шифрование данных</div>
+        </div>
+        <div class="section">
+            <div class="icon">👤</div>
+            <div class="text">Защита персональных данных</div>
+        </div>
+        <div class="section">
+            <div class="icon">🛡️</div>
+            <div class="text">Защита от вирусов</div>
+        </div>
+    </div>
+
+</body>
+</html>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполнение задания №1: Вариант 2.
+-->
+<!--
+Код:
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 1em;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .sections-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .section {
+            flex-basis: calc(33.33% - 20px);
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .section:hover {
+            background-color: #f0f0f0;
+        }
+
+        .section:hover .icon {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Техника безопасности</h1>
+
+    <div class="sections-container">
+        <div class="section">
+            <img class="icon" src="https://gcatti.com/upload/iblock/a87/l32p6eqtv76v9n8h45hpf239a9fwj0er.jpg" alt="Fire Icon">
+            <div class="text">Пожарная безопасность</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/thumbs/1663618949_9-mykaleidoscope-ru-p-znak-agressii-pinterest-13.png" alt="Lock Icon">
+            <div class="text">Физическая безопасность</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://www.pinclipart.com/picdir/big/301-3018256_security-clipart.png" alt="Security Icon">
+            <div class="text">Информационная безопасность</div>
+        </div>
+    </div>
+
+    <h1>Информационная безопасность</h1>
+
+    <div class="sections-container">
+        <div class="section">
+            <img class="icon" src="https://harrymoreno.com/img/work/ssl.png" alt="Encryption Icon">
+            <div class="text">Шифрование данных</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://www.idoinsicilyweddingplanner.com/privacy_files/privacy-policy.png" alt="User Icon">
+            <div class="text">Защита персональных данных</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://cdn-icons-png.flaticon.com/512/7195/7195225.png" alt="Shield Icon">
+            <div class="text">Защита от вирусов</div>
+        </div>
+    </div>
+
+</body>
+</html>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполнение задания №1: Вариант 3.
+-->
+<!--
+Код:
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 1em;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Структурирование кода */
+        .sections-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .section {
+            flex-basis: calc(33.33% - 20px);
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Адаптивность */
+        @media screen and (max-width: 768px) {
+            .sections-container {
+                flex-direction: column;
+            }
+            .section {
+                flex-basis: 100%;
+            }
+        }
+
+        /* Анимации и дополнительные стили */
+        .section:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Техника безопасности</h1>
+
+    <div class="sections-container">
+        <div class="section">
+            <img class="icon" src="https://gcatti.com/upload/iblock/a87/l32p6eqtv76v9n8h45hpf239a9fwj0er.jpg" alt="Fire Icon">
+            <div class="text">Пожарная безопасность</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/thumbs/1663618949_9-mykaleidoscope-ru-p-znak-agressii-pinterest-13.png" alt="Lock Icon">
+            <div class="text">Физическая безопасность</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://www.pinclipart.com/picdir/big/301-3018256_security-clipart.png" alt="Security Icon">
+            <div class="text">Информационная безопасность</div>
+        </div>
+    </div>
+
+    <h1>Информационная безопасность</h1>
+
+    <div class="sections-container">
+        <div class="section">
+            <img class="icon" src="https://harrymoreno.com/img/work/ssl.png" alt="Encryption Icon">
+            <div class="text">Шифрование данных</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://www.idoinsicilyweddingplanner.com/privacy_files/privacy-policy.png" alt="User Icon">
+            <div class="text">Защита персональных данных</div>
+        </div>
+        <div class="section">
+            <img class="icon" src="https://cdn-icons-png.flaticon.com/512/7195/7195225.png" alt="Shield Icon">
+            <div class="text">Защита от вирусов</div>
+        </div>
+    </div>
+
+</body>
+</html>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+Выполнение задания №1: Вариант 4.
+-->
+<!--
+Код:
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 1em;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .sections-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .section {
+            flex-basis: calc(33.33% - 20px);
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Цвет текста для разделов Техника безопасности */
+        .section.fire .text,
+        .section.lock .text,
+        .section.security .text {
+            color: red;
+        }
+
+        /* Цвет текста для разделов Информационная безопасность */
+        .section.encryption .text,
+        .section.user .text,
+        .section.shield .text {
+            color: green;
+        }
+
+        @media screen and (max-width: 768px) {
+            .sections-container {
+                flex-direction: column;
+            }
+            .section {
+                flex-basis: 100%;
+            }
+        }
+
+        .section:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Техника безопасности</h1>
+
+    <div class="sections-container">
+        <div class="section fire">
+            <img class="icon" src="https://gcatti.com/upload/iblock/a87/l32p6eqtv76v9n8h45hpf239a9fwj0er.jpg" alt="Fire Icon">
+            <div class="text">Пожарная безопасность</div>
+        </div>
+        <div class="section lock">
+            <img class="icon" src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/thumbs/1663618949_9-mykaleidoscope-ru-p-znak-agressii-pinterest-13.png" alt="Lock Icon">
+            <div class="text">Физическая безопасность</div>
+        </div>
+        <div class="section security">
+            <img class="icon" src="https://www.pinclipart.com/picdir/big/301-3018256_security-clipart.png" alt="Security Icon">
+            <div class="text">Информационная безопасность</div>
+        </div>
+    </div>
+
+    <h1>Информационная безопасность</h1>
+
+    <div class="sections-container">
+        <div class="section encryption">
+            <img class="icon" src="https://harrymoreno.com/img/work/ssl.png" alt="Encryption Icon">
+            <div class="text">Шифрование данных</div>
+        </div>
+        <div class="section user">
+            <img class="icon" src="https://www.idoinsicilyweddingplanner.com/privacy_files/privacy-policy.png" alt="User Icon">
+            <div class="text">Защита персональных данных</div>
+        </div>
+        <div class="section shield">
+            <img class="icon" src="https://cdn-icons-png.flaticon.com/512/7195/7195225.png" alt="Shield Icon">
+            <div class="text">Защита от вирусов</div>
+        </div>
+    </div>
+
+</body>
+</html>
