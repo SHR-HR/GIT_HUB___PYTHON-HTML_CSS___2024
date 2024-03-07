@@ -1,0 +1,17 @@
+https://habr.com/ru/articles/656609/
+
+https://qna.habr.com/q/365102
+
+https://questu.ru/articles/14893/
+
+https://webscrapingsite.com/ru/resources/dynamic-web-scraping-python/
+
+https://ru-brightdata.com/blog/how-tos-ru/scrape-dynamic-websites-python
+
+https://idatica.com/blog/parsing-saytov-na-python-rukovodstvo-dlya-novichkov/
+
+https://pythonist.ru/vebskrejping-dlya-sravneniya-czen-na-sajtah-chast-1/
+
+https://pythonpip.ru/examples/parsing-python
+
+https://parsemachine.com/articles/urok-1-pishem-parser-kataloga-tovarov-na-python/
