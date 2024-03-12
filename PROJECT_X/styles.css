@@ -1,0 +1,78 @@
+/* Общие стили для всех страниц */
+
+/* Стили для заголовков */
+h1 {
+    font-size: 50px;
+    color: #333;
+}
+
+h2 {
+    font-size: 35px;
+    color: #555;
+}
+
+/* Стили для навигации */
+nav ul {
+    list-style-type: none;
+    margin: 50;
+    padding: 500;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 45px;
+}
+
+nav ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Стили для футера */
+footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+}
+
+/* Новые стили для главной страницы */
+main {
+    padding: 45px;
+}
+
+section {
+    margin-bottom: 45px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+/* Добавляем стили для логотипа */
+.logo {
+    width: 250px;
+    height: 250px;
+    background-image: url('logo_mars.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    float: left;
+    margin-right: 10px;
+}
+
+/* Фоновое изображение для всей страницы */
+body {
+    background-image: url('bg_wp_2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-size: 35px; /* Новый размер шрифта */
+    background-color: rgba(0, 0, 0, 0.2);
+}
