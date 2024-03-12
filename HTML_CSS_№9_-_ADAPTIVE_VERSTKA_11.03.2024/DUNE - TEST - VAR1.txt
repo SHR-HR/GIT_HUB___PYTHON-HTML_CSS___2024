@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мир Дюны</title>
+    <style>
+        /* Стили для главного контейнера */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Стили для заголовка и навигационного меню */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Стили для основного содержимого */
+        main {
+            padding: 20px;
+        }
+
+        /* Стили для футера */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Мир Дюны</h1>
+    <nav>
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Статьи</a></li>
+            <li><a href="#">Обзоры</a></li>
+            <li><a href="#">Интервью</a></li>
+            <li><a href="#">Контакты</a></li>
+            <li><a href="#">Медиа</a></li>
+            <li><a href="#">О нас</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>Добро пожаловать в мир Дюны!</h2>
+        <p>Здесь вы найдете всю необходимую информацию о вселенной Дюны, созданной Фрэнком Гербертом, а также об экранизации этого мира режиссёром Дени Вильнёвом.</p>
+        <!-- Здесь можете добавить краткое введение или другой контент -->
+    </section>
+
+    <!-- Другие разделы страницы, такие как статьи, обзоры, интервью и т.д., будут добавлены здесь -->
+</main>
+
+<footer>
+    <p>&copy; 2024 Мир Дюны</p>
+</footer>
+
+</body>
+</html>

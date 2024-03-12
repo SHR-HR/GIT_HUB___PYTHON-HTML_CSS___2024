@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мир Дюны</title>
+    <!-- CSS для позиционирования элементов и адаптивности -->
+<style>
+    /* Общие стили */
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Стили для header */
+    header {
+        background-image: url('background.jpg');
+        background-size: cover;
+        color: #fff;
+        padding: 50px;
+        text-align: center;
+    }
+
+    /* Стили для навигации */
+    nav {
+        text-align: center;
+        padding: 20px;
+        background-color: #333; /* Цвет фона навигации */
+    }
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* Стили для адаптивности */
+    @media screen and (max-width: 768px) {
+        nav ul li {
+            display: block;
+            margin: 10px 0;
+        }
+    }
+
+    /* Стили для раздела с подробной информацией */
+    #details {
+        display: none; /* Подробности изначально скрыты */
+    }
+
+    #details-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Стили для формы поиска */
+    #search-form {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #search-input {
+        padding: 8px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #search-button {
+        padding: 8px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+</head>
+<body>
+
+<header>
+    <h1>Добро пожаловать в мир Дюны!</h1>
+</header>
+
+<!-- Навигация -->
+<nav>
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="articles.html">Статьи</a></li>
+        <li><a href="reviews.html">Обзоры</a></li>
+        <li><a href="interviews.html">Интервью</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+        <li><a href="media.html">Медиа</a></li>
+        <li><a href="about.html">О нас</a></li>
+        <li><a href="forum.html">Форум</a></li>
+        <li><a href="blog.html">Блог</a></li>
+    </ul>
+</nav>
+
+
+<main>
+    <section id="home">
+        <h2>Добро пожаловать в мир Дюны!</h2>
+        <p>Здесь вы найдете всю необходимую информацию о вселенной Дюны, созданной Фрэнком Гербертом, а также об экранизации этого мира режиссёром Дени Вильнёвом.</p>
+        <img src="dune_image.jpg" alt="Изображение из мира Дюны">
+        <!-- Кнопка для отображения подробной информации -->
+        <button id="details-btn">Подробнее</button>
+        <!-- Раздел с подробной информацией -->
+        <div id="details">
+            <h3>Подробности о мире Дюны:</h3>
+            <p>Мир Дюны — вымышленный мир, представленный в цикле научно-фантастических романов Фрэнка Герберта, начиная с одноимённого романа «Дюна».</p>
+            <p>Мир Дюны характеризуется огромными песчаными пустынями и великими политическими интригами.</p>
+            <p>Известны также экранизации романа, среди которых наиболее известен фильм Дэвида Линча (1984 года) и экранизация режиссёра Дени Вильнёва (2021 года).</p>
+        </div>
+    </section>
+
+    <!-- Форма поиска -->
+    <section id="search-form">
+        <form action="/search" method="GET">
+            <input type="text" id="search-input" name="q" placeholder="Поиск...">
+            <button type="submit" id="search-button">Найти</button>
+        </form>
+    </section>
+
+    <!-- Другие разделы сайта -->
+</main>
+
+
+<footer>
+    &copy; 2024 Мир Дюны
+</footer>
+
+<!-- Форма подписки на рассылку -->
+<section id="subscribe">
+    <h2>Подписка на рассылку</h2>
+    <form action="subscribe.php" method="post">
+        <label for="email">Введите ваш email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Подписаться</button>
+    </form>
+</section>
+
+<!-- Интерактивные элементы -->
+<section id="interactive">
+    <h2>Интерактивные элементы</h2>
+    <select id="dropdown">
+        <option value="1">Вариант 1</option>
+        <option value="2">Вариант 2</option>
+        <option value="3">Вариант 3</option>
+    </select>
+    <input type="range" min="1" max="100" value="50" id="slider">
+</section>
+
+<!-- Кнопка "Наверх" -->
+<button id="scrollToTopBtn" title="Наверх">Наверх</button>
+
+<!-- JavaScript для обработки интерактивных элементов и отображения подробной информации -->
+<script>
+    // Получаем ссылку на кнопку "Подробнее" и на раздел с подробной информацией
+    var detailsBtn = document.getElementById("details-btn");
+    var detailsSection = document.getElementById("details");
+
+    // Добавляем обработчик события для кнопки
+    detailsBtn.addEventListener("click", function() {
+        // Переключаем отображение раздела с подробной информацией
+        if (detailsSection.style.display === "none") {
+            detailsSection.style.display = "block";
+            detailsBtn.textContent = "Скрыть подробности"; // Меняем текст кнопки
+        } else {
+            detailsSection.style.display = "none";
+            detailsBtn.textContent = "Подробнее"; // Меняем текст кнопки
+        }
+    });
+</script>
+
+<!-- JavaScript для кнопки "Наверх" -->
+<script>
+    var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // Показываем кнопку "Наверх" при прокрутке страницы вниз
+    window.addEventListener("scroll", function() {
+        if (document.documentElement.scrollTop > 100) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    });
+
+    // Прокрутка страницы к началу при клике на кнопку "Наверх"
+    scrollToTopBtn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
+
+
+</body>
+</html>
