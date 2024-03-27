@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+        /* css */
+        a {color: red}
+        </style>
+        <script src="./index.js"></script>
+    </head>
+<body>
+        <h1>Hello, Mom</h1>
+        <a href="#btn1">hello</a>
+        <section id="sc1"></section>
+        <section id="sc2"></section>
+    <form>
+        <input />
+        <select></select>
+    </form>
+
+    <button id="btn1">Click me</button>
+
+    <script>
+        var user_input = prompt('Как Вас зовут?')
+        console.log(user_input)
+
+        document.write(user_input * 2)
+        // javascript
+        var btn = document.getElementById('btn1')
+        btn.addEventListener('click', function() {
+            console.log('hello')
+        })
+
+        if ('0' == 0) {
+            alert('omg')
+            console.log(10 + 1)
+            console.log('10' + 1)
+            console.log('1' + 1)
+            console.log(1 + 1)
+        }
+    </script>
+</body>
+</html>

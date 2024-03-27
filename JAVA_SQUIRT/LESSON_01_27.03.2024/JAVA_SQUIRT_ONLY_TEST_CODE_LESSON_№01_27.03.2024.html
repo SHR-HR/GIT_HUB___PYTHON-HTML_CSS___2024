@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Практическая и Домашняя работы №1</title>
+</head>
+<body>
+
+<script>
+
+var userName = prompt("Как зовут тебя?");
+alert("Привет, " + userName + "!");
+
+const currentYear = 2024; // Пример текущего года для простоты
+let birthYear = prompt("В каком году ты родился?");
+birthYear = parseInt(birthYear); // Преобразование строки в число
+
+if (!isNaN(birthYear)) {
+    let age = currentYear - birthYear;
+    alert("Тебе " + age + " лет.");
+} else {
+    alert("Пожалуйста, введите корректный год рождения а иначе вы просто сущность.");
+}
+
+
+var sideLength = prompt("Длина стороны квадрата?");
+var perimeter = 4 * sideLength;
+alert("Периметр квадрата: " + perimeter);
+
+var radius = prompt("Радиус окружности?");
+var area = Math.PI * Math.pow(radius, 2);
+alert("Площадь окружности: " + area);
+
+var distance = prompt("Расстояние между городами (в км)?");
+var time = prompt("За сколько часов ты хочешь добраться до пункта назначения?");
+var speed = distance / time;
+alert("Тебе нужно двигаться со скоростью " + speed + " км/ч., чтобы добраться до пункта назначения");
+
+const exchangeRate = 0.93; // Курс обмана
+var dollars = prompt("Сколько у тебя долларов?");
+var euros = dollars * exchangeRate;
+alert("Это будет " + euros + " гейро.");
+
+var flashDriveSizeGB = prompt("Объем флешки в Гб?");
+var filesCount = Math.floor(flashDriveSizeGB * 1024 / 820);
+alert("На флешку поместится " + filesCount + " разнообразных файлов размером приблизительно по 820 Мб.");
+
+var moneyAmount = prompt("Есть чё по мелочи?");
+var chocolatePrice = prompt("Цена одной шоколадки?");
+var chocolates = Math.floor(moneyAmount / chocolatePrice);
+var change = moneyAmount % chocolatePrice;
+alert("Ты можешь купить и съесть " + chocolates + " шоколадок, и у тебя еще останется сдача " + change + " кристалов.");
+
+var number = prompt("Введи трехзначное число");
+var reversedNumber = number.split('').reverse().join('');
+alert("Число задом наперед: " + reversedNumber);
+
+var age = prompt("Сколько тебе годиков?");
+age = parseInt(age); // Преобразование в число
+if (age >= 0 && age <= 2) {
+    alert("Еще нельзя.");
+} else if (age >= 12 && age <= 18) {
+    alert("Уже можно.");
+} else if (age > 18 && age <= 60) {
+    alert("Еще можно.");
+} else {Ебать ты дед.");
+}
+
+var number = prompt("Введите число от 0 до 9");
+switch( number) {
+   case '1': alert("!"); break;
+    case '2': alert("@"); break;
+    case '3': alert("#"); break;
+    case '4': alert("$"); break;
+    case '5': alert("%"); break;
+    case '6': alert("^"); break;
+    case '7': alert("&"); break;
+    case '8': alert("*"); break;
+    case '9': alert("("); break
+    case '0': alert(")"); break;
+    default: alert("Число вне диапазона 0-9")
+}
+
+var number = prompt("Введите трехзначное число");
+var first = number % 10;
+var second = Math.floor(number / 10) % 10;
+var third = Math.floor(number / 100);
+if (first === second || first === third || second === third) {
+    alert("В числе есть одинаковые цифры.");
+} else {
+    alert("В числе нет одинаковых цифр.");
+}
+
+var year = prompt("Введите год");
+year = parseInt(year);
+if ((year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0)) {
+    alert("Год високосный.");
+} else {
+
+</script>
+
+</body>
+</html>
