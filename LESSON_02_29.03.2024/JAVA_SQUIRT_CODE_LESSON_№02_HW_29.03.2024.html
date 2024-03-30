@@ -1,0 +1,512 @@
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Дата выполнения 29 и 30 МАРТА 2024 года.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Домашняя работа
+
+Курс: Разработка Web приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка клиентских сценариев с использованием JavaScript
+
+Домашнее задание №2: Множественные условия и циклы.
+
+Знаете ли вы, что существует вариация созданной на занятии игры, которая называется:
+«Rock, paper, scissors, lizard, Spock»!
+
+Ее правила идентичны «Rock, paper, scissors», однако условия выигрыша немного сложнее.
+Давайте дополним код созданной игры так, чтобы пользователю было предложено сделать выбор не из трех,
+а из пяти вариантов:
+
+[s] - scissors
+[p] - paper
+[r] - rock
+[l] - lizard
+[o] – spock
+
+Добавить цикл while. Добавить счет очков.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Урок от 29.03.2024 - Вариант 1.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors, Lizard, Spock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #choices button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Камень, Ножницы, Бумага, Ящерица, Спок</h2>
+    <div id="choices">
+        <button onclick="userChoice('r')">Камень</button>
+        <button onclick="userChoice('p')">Бумага</button>
+        <button onclick="userChoice('s')">Ножницы</button>
+        <button onclick="userChoice('l')">Ящерица</button>
+        <button onclick="userChoice('o')">Спок</button>
+    </div>
+    <div id="result"></div>
+    <script>
+        const choices = {s: "Ножницы", p: "Бумага", r: "Камень", l: "Ящерица", o: "Спок"};
+        const winConditions = {
+            Scissors: ["Бумага", "Ящерица"],
+            Paper: ["Камень", "Спок"],
+            Rock: ["Ножницы", "Ящерица"],
+            Lizard: ["Спок", "Бумага"],
+            Spock: ["Ножницы", "Камень"]
+        };
+
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function userChoice(userChoiceKey) {
+            const userChoice = choices[userChoiceKey];
+            const computerChoiceKeys = Object.keys(choices);
+            const computerChoice = choices[computerChoiceKeys[Math.floor(Math.random() * computerChoiceKeys.length)]];
+
+            let result = `${userChoice} vs ${computerChoice}. `;
+
+            if (userChoice === computerChoice) {
+                result += "Это ничья!";
+            } else if (winConditions[userChoice].includes(computerChoice)) {
+                result += "Ты победил!";
+                playerScore++;
+            } else {
+                result += "Компухтер победил, теперь ты раб SkyNet-a!";
+                computerScore++;
+            }
+
+            result += ` Счет: Игрок ${playerScore} - Компухтер ${computerScore}`;
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 1: Определение HTML-структуры
+
+Код:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors, Lizard, Spock</title>
+    ...
+</head>
+<body>
+    ...
+</body>
+</html>
+
+Описание:
+Это основа HTML-документа, содержащая объявление типа документа, корневой элемент,
+метаданные в <head> (включая кодировку, масштабирование для мобильных устройств и заголовок страницы) и тело
+документа в <body>, где будет отображаться содержимое веб-страницы.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 2: Стилизация CSS
+
+Код:
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#choices button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+Описание:
+Здесь задаются CSS-стили для элементов страницы: шрифт, выравнивание текста, отступы и размеры шрифта.
+Стили направлены на улучшение визуального восприятия элементов интерфейса пользователя.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 3: Разметка и кнопки выбора
+
+Код:
+
+<h2>Камень, Ножницы, Бумага, Ящерица, Спок</h2>
+<div id="choices">
+    <button onclick="userChoice('r')">Камень</button>
+    <button onclick="userChoice('p')">Бумага</button>
+    <button onclick="userChoice('s')">Ножницы</button>
+    <button onclick="userChoice('l')">Ящерица</button>
+    <button onclick="userChoice('o')">Спок</button>
+</div>
+<div id="result"></div>
+
+Описание:
+Эта часть отвечает за отображение заголовка игры, набора кнопок для выбора пользователя и блока
+для вывода результата игры. Каждая кнопка вызывает функцию userChoice с аргументом, соответствующим выбору пользователя.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 4: JavaScript - Объявление переменных и функций
+
+Код:
+
+const choices = {s: "Ножницы", p: "Бумага", r: "Камень", l: "Ящерица", o: "Спок"};
+const winConditions = {
+    Scissors: ["Бумага", "Ящерица"],
+    Paper: ["Камень", "Спок"],
+    Rock: ["Ножницы", "Ящерица"],
+    Lizard: ["Спок", "Бумага"],
+    Spock: ["Ножницы", "Камень"]
+};
+
+let playerScore = 0;
+let computerScore = 0;
+
+Описание:
+Здесь объявлены переменные для хранения возможных выборов (choices) и условий победы (winConditions).
+Также инициализируются переменные для отслеживания счета игрока и компьютера.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 5: Функция userChoice
+
+Код:
+
+function userChoice(userChoiceKey) {
+    const userChoice = choices[userChoiceKey];
+    const computerChoiceKeys = Object.keys(choices);
+    const computerChoice = choices[computerChoiceKeys[Math.floor(Math.random() * computerChoiceKeys.length)]];
+    let result = `${userChoice} vs ${computerChoice}. `;
+    ...
+}
+
+Описание:
+Функция, вызываемая при нажатии на одну из кнопок выбора.
+Определяет выбор пользователя и случайным образом выбор компьютера,
+после чего сравнивает их для определения результата.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 6: Определение победителя и вывод результата
+
+Код:
+
+if (userChoice === computerChoice) {
+    result += "Это ничья!";
+} else if (winConditions[userChoice].includes(computerChoice)) {
+    result += "Ты победил!";
+    playerScore++;
+} else {
+    result += "Компухтер победил, теперь ты раб SkyNet-a!";
+    computerScore++;
+}
+result += ` Счет: Игрок ${playerScore} - Компухтер ${computerScore}`;
+document.getElementById("result").innerText = result;
+
+Описание:
+В этой части кода происходит сравнение выбора пользователя и компьютера, определение победителя раунда,
+обновление счета и вывод результата в блок result.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ УНИФИЦИРОВАННЫЙ ТИП КОДА - без баловства ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!--
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камень, Бумага, Ножницы, Ящерица, Спок</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #choices button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Камень, Ножницы, Бумага, Ящерица, Спок</h2>
+    <div id="choices">
+        <button onclick="userChoice('r')">Камень</button>
+        <button onclick="userChoice('p')">Бумага</button>
+        <button onclick="userChoice('s')">Ножницы</button>
+        <button onclick="userChoice('l')">Ящерица</button>
+        <button onclick="userChoice('o')">Спок</button>
+    </div>
+    <div id="result"></div>
+    <script>
+        const choices = {
+            's': 'Ножницы',
+            'p': 'Бумага',
+            'r': 'Камень',
+            'l': 'Ящерица',
+            'o': 'Спок'
+        };
+        const winConditions = {
+            'Ножницы': ['Бумага', 'Ящерица'],
+            'Бумага': ['Камень', 'Спок'],
+            'Камень': ['Ножницы', 'Ящерица'],
+            'Ящерица': ['Спок', 'Бумага'],
+            'Спок': ['Ножницы', 'Камень']
+        };
+
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function userChoice(userChoiceKey) {
+            const userChoice = choices[userChoiceKey];
+            const computerChoiceKeys = Object.keys(choices);
+            const computerChoice = choices[computerChoiceKeys[Math.floor(Math.random() * computerChoiceKeys.length)]];
+
+            let result = `${userChoice} против ${computerChoice}. `;
+
+            if (userChoice === computerChoice) {
+                result += "Это ничья!";
+            } else if (winConditions[userChoice].includes(computerChoice)) {
+                result += "Ты победил!";
+                playerScore++;
+            } else {
+                result += "Компьютер победил!";
+                computerScore++;
+            }
+
+            result += ` Счет: Игрок ${playerScore} - Компьютер ${computerScore}`;
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>
+-->
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Урок от 29.03.2024 - Вариант 2.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камень, Бумага, Ножницы, Ящерица, Спок</title>
+</head>
+<body>
+<script>
+// Определение переменных для хранения выборов и правил игры
+const choices = {
+    's': 'Ножницы',
+    'p': 'Бумага',
+    'r': 'Камень',
+    'l': 'Ящерица',
+    'o': 'Спок'
+};
+const winConditions = {
+    "Ножницы": ["Бумага", "Ящерица"],
+    "Бумага": ["Камень", "Спок"],
+    "Камень": ["Ножницы", "Ящерица"],
+    "Ящерица": ["Спок", "Бумага"],
+    "Спок": ["Ножницы", "Камень"]
+};
+
+let playerScore = 0;
+let computerScore = 0;
+
+// Функция для получения выбора компьютера
+function getComputerChoice() {
+    const keys = Object.keys(choices);
+    const choice = keys[Math.floor(Math.random() * keys.length)];
+    return choices[choice];
+}
+
+// Функция для определения победителя раунда
+function determineWinner(playerChoice, computerChoice) {
+    if (playerChoice === computerChoice) {
+        return "Это ничья!";
+    } else if (winConditions[playerChoice].includes(computerChoice)) {
+        playerScore++;
+        return `Ты победил! ${playerChoice} побеждает ${computerChoice}`;
+    } else {
+        computerScore++;
+        return `Компьютер побеждает! ${computerChoice} побеждает ${playerChoice}`;
+    }
+}
+
+// Основной игровой цикл
+function playGame() {
+    let keepPlaying = true;
+    while (keepPlaying) {
+        const playerInput = prompt(`Выберите вариант:\n[s] Ножницы\n[p] Бумага\n[r] Камень\n[l]
+        Ящерица\n[o] Спок\nНапиши "ВЫХОД" чтобы выйти из игры.`);
+        if (playerInput.toLowerCase() === 'выход') {
+            keepPlaying = false;
+            continue;
+        }
+
+        const playerChoice = choices[playerInput.toLowerCase()];
+        if (!playerChoice) {
+            alert("Неверный выбор, пожалуйста, попробуйте снова.");
+            continue;
+        }
+
+        const computerChoice = getComputerChoice();
+        alert(`Ваш выбор: ${playerChoice}\nВыбор компьютера: ${computerChoice}\n${determineWinner(playerChoice,
+         computerChoice)}\n\nСчет: Ты ${playerScore} - Компьютер ${computerScore}`);
+    }
+
+    alert(`Окончательный счет: Ты ${playerScore} - Компьютер ${computerScore}\nСпасибо за игру!`);
+}
+
+playGame();
+</script>
+</body>
+</html>
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 1: Определение HTML-структуры
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камень, Бумага, Ножницы, Ящерица, Спок</title>
+</head>
+<body>
+</body>
+</html>
+
+Описание:
+Этот код задает основу для HTML-документа, включая тип документа, язык, метаданные
+(кодировка, настройки отображения на мобильных устройствах), а также заголовок веб-страницы.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 2: Определение переменных для хранения выборов и правил игры
+
+const choices = {
+    's': 'Ножницы',
+    'p': 'Бумага',
+    'r': 'Камень',
+    'l': 'Ящерица',
+    'o': 'Спок'
+};
+const winConditions = {
+    "Ножницы": ["Бумага", "Ящерица"],
+    "Бумага": ["Камень", "Спок"],
+    "Камень": ["Ножницы", "Ящерица"],
+    "Ящерица": ["Спок", "Бумага"],
+    "Спок": ["Ножницы", "Камень"]
+};
+
+Описание:
+choices содержит соответствие между ключами (однобуквенные обозначения) и полными названиями возможных выборов в игре.
+winConditions определяет, какой выбор побеждает какие другие выборы, задавая условия победы для каждого варианта.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 3: Функция для получения выбора компьютера
+
+function getComputerChoice() {
+    const keys = Object.keys(choices);
+    const choice = keys[Math.floor(Math.random() * keys.length)];
+    return choices[choice];
+}
+
+Описание:
+Эта функция возвращает случайный выбор для компьютера.
+Сначала извлекаются ключи из объекта choices, затем случайным образом выбирается один из ключей, и возвращается
+соответствующее этому ключу значение.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 4: Функция для определения победителя раунда
+
+function determineWinner(playerChoice, computerChoice) {
+    if (playerChoice === computerChoice) {
+        return "Это ничья!";
+    } else if (winConditions[playerChoice].includes(computerChoice)) {
+        playerScore++;
+        return `Ты победил! ${playerChoice} побеждает ${computerChoice}`;
+    } else {
+        computerScore++;
+        return `Компьютер побеждает! ${computerChoice} побеждает ${playerChoice}`;
+    }
+}
+
+Описание:
+Функция сравнивает выбор игрока и компьютера, определяет победителя раунда,
+обновляет счет и возвращает строку с результатом раунда.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 5: Основной игровой цикл
+
+function playGame() {
+    let keepPlaying = true;
+    while (keepPlaying) {
+        const playerInput = prompt(`Выберите вариант:\n[s] Ножницы\n[p] Бумага\n[r]
+        Камень\n[l] Ящерица\n[o] Спок\nНапиши "ВЫХОД" чтобы выйти из игры.`);
+        if (playerInput.toLowerCase() === 'выход') {
+            keepPlaying = false;
+            continue;
+        }
+        const playerChoice = choices[playerInput.toLowerCase()];
+        if (!playerChoice) {
+            alert("Неверный выбор, пожалуйста, попробуйте снова.");
+            continue;
+        }
+        const computerChoice = getComputerChoice();
+        alert(`Ваш выбор: ${playerChoice}\nВыбор компьютера: ${computerChoice}\n${determineWinner(playerChoice,
+        computerChoice)}\n\nСчет: Ты ${playerScore} - Компьютер ${computerScore}`);
+    }
+    alert(`Окончательный счет: Ты ${playerScore} - Компьютер ${computerScore}\nСпасибо за игру!`);
+}
+
+Описание:
+Это основной игровой цикл. Игрок делает свой выбор через всплывающее окно prompt. Если игрок вводит "ВЫХОД",
+игра завершается. Если ввод некорректен, игроку предлагается сделать выбор заново.
+После каждого выбора сравниваются варианты игрока и компьютера, выводится результат раунда и обновляется счет.
+В конце игры выводится окончательный счет.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Шаг № 6: Запуск игры
+
+playGame();
+
+Описание:
+Вызов функции playGame запускает игру.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Каждый шаг этого кода объединен в рабочую структуру, которая позволяет
+играть в "Камень, Бумага, Ножницы, Ящерица, Спок" прямо в вашем браузере,
+демонстрируя основы программирования: работу с условными операторами, циклами, объектами и функциями в JavaScript.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->

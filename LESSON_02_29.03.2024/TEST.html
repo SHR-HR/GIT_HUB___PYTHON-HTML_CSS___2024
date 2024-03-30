@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камень, Бумага, Ножницы, Ящерица, Спок</title>
+</head>
+<body>
+<script>
+// Определение переменных для хранения выборов и правил игры
+const choices = {
+    's': 'Ножницы',
+    'p': 'Бумага',
+    'r': 'Камень',
+    'l': 'Ящерица',
+    'o': 'Спок'
+};
+const winConditions = {
+    "Ножницы": ["Бумага", "Ящерица"],
+    "Бумага": ["Камень", "Спок"],
+    "Камень": ["Ножницы", "Ящерица"],
+    "Ящерица": ["Спок", "Бумага"],
+    "Спок": ["Ножницы", "Камень"]
+};
+
+let playerScore = 0;
+let computerScore = 0;
+
+// Функция для получения выбора компьютера
+function getComputerChoice() {
+    const keys = Object.keys(choices);
+    const choice = keys[Math.floor(Math.random() * keys.length)];
+    return choices[choice];
+}
+
+// Функция для определения победителя раунда
+function determineWinner(playerChoice, computerChoice) {
+    if (playerChoice === computerChoice) {
+        return "Это ничья!";
+    } else if (winConditions[playerChoice].includes(computerChoice)) {
+        playerScore++;
+        return `Ты победил! ${playerChoice} побеждает ${computerChoice}`;
+    } else {
+        computerScore++;
+        return `Компьютер побеждает! ${computerChoice} побеждает ${playerChoice}`;
+    }
+}
+
+// Основной игровой цикл
+function playGame() {
+    let keepPlaying = true;
+    while (keepPlaying) {
+        const playerInput = prompt(`Выберите вариант:\n[s] Ножницы\n[p] Бумага\n[r] Камень\n[l] Ящерица\n[o] Спок\nНапиши "ВЫХОД" чтобы выйти из игры.`);
+        if (playerInput.toLowerCase() === 'выход') {
+            keepPlaying = false;
+            continue;
+        }
+
+        const playerChoice = choices[playerInput.toLowerCase()];
+        if (!playerChoice) {
+            alert("Неверный выбор, пожалуйста, попробуйте снова.");
+            continue;
+        }
+
+        const computerChoice = getComputerChoice();
+        alert(`Ваш выбор: ${playerChoice}\nВыбор компьютера: ${computerChoice}\n${determineWinner(playerChoice, computerChoice)}\n\nСчет: Ты ${playerScore} - Компьютер ${computerScore}`);
+    }
+
+    alert(`Окончательный счет: Ты ${playerScore} - Компьютер ${computerScore}\nСпасибо за игру!`);
+}
+
+playGame();
+</script>
+</body>
+</html>

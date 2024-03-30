@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест</title>
+</head>
+<body>
+
+<script>
+
+var number = prompt("Введите число:");
+if (number > 0) {
+    alert("Число положительное.");
+} else if (number < 0) {
+    alert("Число отрицательное.");
+} else {
+    alert("Это ноль.");
+}
+
+var age = prompt("Введите ваш возраст:");
+if (age >= 0 && age <= 120) {
+    alert("Введенные данные корректны.");
+} else {
+    alert("Некорректный возраст.");
+}
+
+var number = prompt("Введите число:");
+var absoluteNumber = (number >= 0) ? number : -number;
+alert("Модуль числа: " + absoluteNumber);
+
+var hours = prompt("Введите часы:");
+var minutes = prompt("Введите минуты:");
+var seconds = prompt("Введите секунды:");
+
+if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60 && seconds >= 0 && seconds < 60) {
+    alert("Введенное время корректно.");
+} else {
+    alert("Некорректное время.");
+}
+
+var x = prompt("Введите координату X:");
+var y = prompt("Введите координату Y:");
+
+if (x > 0 && y > 0) {
+    alert("Точка находится в первой четверти.");
+} else if (x < 0 && y > 0) {
+    alert("Точка находится во второй четверти.");
+} else if (x < 0 && y < 0) {
+    alert("Точка находится в третьей четверти.");
+} else if (x > 0 && y < 0) {
+    alert("Точка находится в четвертой четверти.");
+} else if (x == 0 && y != 0) {
+    alert("Точка находится на оси Y.");
+} else if (y == 0 && x != 0) {
+    alert("Точка находится на оси X.");
+} else {
+    alert("Точка находится в начале координат.");
+}
+
+
+</script>
+
+</body>
+</html>

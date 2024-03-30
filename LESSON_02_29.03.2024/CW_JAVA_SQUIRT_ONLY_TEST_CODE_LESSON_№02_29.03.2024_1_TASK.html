@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест</title>
+</head>
+<body>
+
+<script>
+
+var number = prompt("Введите число:");
+var squaredNumber = Math.pow(number, 2);
+alert("Число во второй степени: " + squaredNumber);
+
+const KM_TO_MILES = 0.621371;
+var kilometers = prompt("Введите количество километров:");
+var miles = kilometers * KM_TO_MILES;
+alert(kilometers + " км = " + miles + " миль.");
+
+var number1 = parseFloat(prompt("Введите первое число:"));
+var number2 = parseFloat(prompt("Введите второе число:"));
+alert("Сумма: " + (number1 + number2));
+alert("Разность: " + (number1 - number2));
+alert("Произведение: " + (number1 * number2));
+alert("Частное: " + (number1 / number2));
+
+var hours = prompt("Введите текущее время (часы):");
+var minutes = prompt("Введите текущее время (минуты):");
+var timeLeft = (23 - hours) * 60 + (60 - minutes);
+alert("До конца дня осталось: " + Math.floor(timeLeft / 60) + " часов и " + (timeLeft % 60) + " минут.");
+
+var sales = prompt("Введите общую сумму продаж за месяц:");
+var salary = 250 + sales * 0.1;
+alert("Зарплата составляет: $" + salary);
+
+
+
+
+</script>
+
+</body>
+</html>

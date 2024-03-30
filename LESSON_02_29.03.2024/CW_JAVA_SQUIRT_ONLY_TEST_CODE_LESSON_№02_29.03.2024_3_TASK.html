@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест</title>
+</head>
+<body>
+
+<script>
+
+var number1 = prompt("Введите первое число:");
+var number2 = prompt("Введите второе число:");
+var largerNumber = (number1 > number2) ? number1 : number2;
+alert("Большее число: " + largerNumber);
+
+var number = prompt("Введите число:");
+var isMultipleOfFive = (number % 5 === 0) ? "Число кратно 5." : "Число не кратно 5.";
+alert(isMultipleOfFive);
+
+var planetName = prompt("Введите название планеты:");
+var greeting = (planetName.toLowerCase() === "земля") ? "Привет, землянин!" : "Привет, инопланетянин!";
+alert(greeting);
+
+</script>
+
+</body>
+</html>

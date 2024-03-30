@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест</title>
+</head>
+<body>
+
+<script>
+
+var monthNumber = prompt("Введите номер месяца:");
+switch (monthNumber) {
+    case '1':
+        alert("Январь");
+        break;
+    case '2':
+        alert("Февраль");
+        break;
+    case '3':
+        alert("Март");
+        break;
+    case '4':
+        alert("Апрель");
+        break;
+    case '5':
+        alert("Май");
+        break;
+    case '6':
+        alert("Июнь");
+        break;
+    case '7':
+        alert("Июль");
+        break;
+    case '8':
+        alert("Август");
+        break;
+    case '9':
+        alert("Сентябрь");
+        break;
+    case '10':
+        alert("Октябрь");
+        break;
+    case '11':
+        alert("Ноябрь");
+        break;
+    case '12':
+        alert("Декабрь");
+        break;
+    default:
+        alert("Такого месяца нет. Введите число от 1 до 12.");
+        break;
+}
+
+var number1 = parseFloat(prompt("Введите первое число:"));
+var number2 = parseFloat(prompt("Введите второе число:"));
+var operation = prompt("Введите знак операции (+, -, *, /):");
+
+switch (operation) {
+    case '+':
+        alert("Результат: " + (number1 + number2));
+        break;
+    case '-':
+        alert("Результат: " + (number1 - number2));
+        break;
+    case '*':
+        alert("Результат: " + (number1 * number2));
+        break;
+    case '/':
+        if (number2 !== 0) {
+            alert("Результат: " + (number1 / number2));
+        } else {
+            alert("На ноль делить нельзя!");
+        }
+        break;
+    default:
+        alert("Неверная операция. Введите один из следующих знаков: +, -, *, /.");
+        break;
+}
+
+
+</script>
+
+</body>
+</html>
