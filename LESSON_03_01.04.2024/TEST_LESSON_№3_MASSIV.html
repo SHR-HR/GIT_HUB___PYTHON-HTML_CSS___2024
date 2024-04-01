@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Массивы в JavaScript</title>
+</head>
+<body>
+<script>
+// Создаем массив из 10 элементов-чисел
+let numbers = [5, 10, 3, 8, 15, 7, 20, 1, 12, 6];
+
+// Инициализируем переменные для хранения максимального и минимального элементов
+let max = numbers[0];
+let min = numbers[0];
+
+// Проходим по всем элементам массива
+for (let i = 1; i < numbers.length; i++) {
+    // Сравниваем текущий элемент с максимальным и минимальным
+    if (numbers[i] > max) {
+        max = numbers[i];
+    } else if (numbers[i] < min) {
+        min = numbers[i];
+    }
+}
+
+console.log("Максимальный элемент:", max);
+console.log("Минимальный элемент:", min);
+</script>
+</body>
+</html>
