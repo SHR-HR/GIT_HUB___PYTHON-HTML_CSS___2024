@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Функции в JavaScript</title>
+</head>
+<body>
+    <script>
+        function customOperation(a, b, operator) {
+            switch (operator) {
+                case 'min':
+                    return min(a, b);
+                case 'power':
+                    return power(a, b);
+                case 'calculate':
+                    return calculate(a, b);
+                case 'isPrime':
+                    return isPrime(a);
+                default:
+                    return 'Неверная операция';
+            }
+        }
+
+        function min(a, b) {
+            return Math.min(a, b);
+        }
+
+        function power(a, b) {
+            return Math.pow(a, b);
+        }
+
+        function calculate(a, operator) {
+            const operands = a.split(' ').map(Number);
+            const b = operands[0];
+            const c = operands[1];
+            switch (operator) {
+                case '+': return b + c;
+                case '-': return b - c;
+                case '*': return b * c;
+                case '/': return c !== 0 ? b / c : 'Ошибка: деление на ноль';
+                default: return 'Неизвестный оператор';
+            }
+        }
+
+        function isPrime(number) {
+            if (number <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(number); i++) {
+                if (number % i === 0) return false;
+            }
+            return true;
+        }
+
+        // Примеры использования
+        console.log(customOperation(10, 5, 'min')); // Выведет: 5
+        console.log(customOperation(2, 3, 'power')); // Выведет: 8
+        console.log(customOperation('10 + 5', '+', 'calculate')); // Выведет: 15
+        console.log(customOperation(17, undefined, 'isPrime')); // Выведет: true
+    </script>
+</body>
+</html>

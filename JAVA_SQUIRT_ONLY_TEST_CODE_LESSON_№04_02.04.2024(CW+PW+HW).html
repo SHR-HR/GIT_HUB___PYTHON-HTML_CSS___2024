@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание №4: Функции</title>
+</head>
+<body>
+    <script>
+        /**
+         * Преобразует заданное время в секунды.
+         * @param {number} hours Часы.
+         * @param {number} minutes Минуты.
+         * @param {number} seconds Секунды.
+         * @returns {number} Время в секундах.
+         * @throws {Error} Если параметры не являются целыми числами.
+         */
+        function timeToSeconds(hours, minutes, seconds) {
+            if (!Number.isInteger(hours) || !Number.isInteger(minutes) || !Number.isInteger(seconds)) {
+                throw new Error('Ошибка: все параметры должны быть целыми числами');
+            }
+            return hours * 3600 + minutes * 60 + seconds;
+        }
+
+        /**
+         * Преобразует секунды обратно в форматированное время "чч:мм:сс".
+         * @param {number} totalSeconds Общее количество секунд.
+         * @returns {string} Время в формате "чч:мм:сс".
+         * @throws {Error} Если параметр не является неотрицательным целым числом.
+         */
+        function secondsToTime(totalSeconds) {
+            if (!Number.isInteger(totalSeconds) || totalSeconds < 0) {
+                throw new Error('Ошибка: параметр должен быть неотрицательным целым числом');
+            }
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+                    function calculateTimeDifference(year1, month1, day1, year2, month2, day2) {
+  // Создаем два объекта даты
+  const date1 = new Date(year1, month1 - 1, day1);
+  const date2 = new Date(year2, month2 - 1, day2);
+
+  // Вычисляем разницу в миллисекундах
+  let difference = Math.abs(date2 - date1);
+
+  // Переводим миллисекунды в часы, минуты и секунды
+  let hours = Math.floor(difference / (1000 * 60 * 60));
+  let minutes = Math.floor((difference / (1000 * 60)) % 60);
+  let seconds = Math.floor((difference / 1000) % 60);
+
+  // Форматируем вывод, добавляя ведущие нули при необходимости
+  hours = (hours < 10) ? "0" + hours : hours;
+  minutes = (minutes < 10) ? "0" + minutes : minutes;
+  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+  // Возвращаем результат в формате "чч:мм:сс"
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+// Пример использования функции
+console.log(calculateTimeDifference(2023, 4, 1, 2023, 4, 2)); // "24:00:00" или другой результат в зависимости от входных данных
+
+
+
+        /**
+         * Рассчитывает разницу между двумя моментами времени.
+         * @param {number} h1 Часы первого момента времени.
+         * @param {number} m1 Минуты первого момента времени.
+         * @param {number} s1 Секунды первого момента времени.
+         * @param {number} h2 Часы второго момента времени.
+         * @param {number} m2 Минуты второго момента времени.
+         * @param {number} s2 Секунды второго момента времени.
+         * @returns {string} Разница между двумя моментами времени в формате "чч:мм:сс".
+         */
+        function calculateTimeDifference(h1, m1, s1, h2, m2, s2) {
+            try {
+                const time1InSeconds = timeToSeconds(h1, m1, s1);
+                const time2InSeconds = timeToSeconds(h2, m2, s2);
+                const differenceInSeconds = Math.abs(time1InSeconds - time2InSeconds);
+                return secondsToTime(differenceInSeconds);
+            } catch (error) {
+                console.error(error.message);
+                return null;
+            }
+        }
+
+        /**
+         * Возводит число в степень рекурсивно.
+         * @param {number} x Основание степени.
+         * @param {number} n Показатель степени, целое число.
+         * @returns {number|null} Результат возведения в степень.
+         */
+        function pow(x, n) {
+            if (typeof x !== 'number' || typeof n !== 'number' || !Number.isInteger(n)) {
+                console.error('Ошибка: параметры должны быть числом и n целым числом');
+                return null;
+            }
+            return n === 0 ? 1 : x * pow(x, n - 1);
+        }
+
+        /**
+         * Находит НОД двух чисел рекурсивно.
+         * @param {number} a Первое число.
+         * @param {number} b Второе число.
+         * @returns {number|null} Наибольший общий делитель.
+         */
+        function gcd(a, b) {
+            if (!Number.isInteger(a) || !Number.isInteger(b)) {
+                console.error('Ошибка: оба параметра должны быть целыми числами');
+                return null;
+            }
+            return b === 0 ? a : gcd(b, a % b);
+        }
+
+        /**
+         * Поиск максимальной цифры в числе.
+         * @param {number} number Число.
+         * @returns {number|null} Максимальная цифра в числе.
+         */
+        function findMaxDigit(number) {
+            if (!Number.isInteger(number)) {
+                console.error('Ошибка: параметр должен быть целым числом');
+                return null;
+            }
+            return Math.max(...number.toString().split('').map(Number));
+        }
+
+        /**
+         * Определяет, является ли число простым, используя рекурсию.
+         * @param {number} number Число для проверки.
+         * @param {number} divisor Делитель, начиная с 2.
+         * @returns {boolean} Является ли число простым.
+         */
+        function isPrime(number, divisor = 2) {
+            if (typeof number !== 'number' || !Number.isInteger(number) || number < 2) {
+                console.error('Ошибка: число должно быть целым и больше 1');
+                return false;
+            }
+            if (number === 2) return true;
+            if (number % divisor === 0) return false;
+            if (divisor * divisor > number) return true;
+            return isPrime(number, divisor + 1);
+        }
+
+        // Примеры вызовов функций
+        console.log('Разница между временами:', calculateTimeDifference(1, 0, 0, 2, 30, 0));
+        console.log('2 в степени 3:', pow(2, 3));
+        console.log('НОД чисел 18 и 24:', gcd(18, 24));
+        console.log('Максимальная цифра в числе 529:', findMaxDigit(529));
+        console.log('Простое ли число 17:', isPrime(17));
+    </script>
+</body>
+</html>
