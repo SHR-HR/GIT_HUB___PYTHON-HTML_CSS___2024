@@ -1,0 +1,572 @@
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Дата выполнения 4 и 5 АПРЕЛЯ 2024 года.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Практическая работа
+
+Курс: Разработка Web приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка клиентских сценариев с использованием JavaScript
+
+Практическая работа № 5. Классы и объекты
+
+Выполните следующие задания:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+1. Создать класс Банка, он должен иметь такие параметры как: количество денег, максимальный запас, процент кредита,
+процент депозита.
+И функцию, которая выдает кредит на выбранный срок, и выбранную сумму,
+и рассчитывает сколько нужно возвращать помесячно.
+
+2. Создать класс Музыканта, он должен иметь такие параметры как: псевдоним, имя, цена концерта.
+И функцию, которая принимает сумму денег и выдает количество выступлений, которые исполнит музыкант за эту сумму.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Урок от 03.04.2024
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!--
+Вариант выполнения всех заданий №1.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Практическая работа №5: Классы и объекты JS. Вариант №1.</title>
+</head>
+<body>
+    <script>
+        // Класс Bank для управления финансами и кредитами
+        class Bank {
+            constructor(money, maxSupply, loanInterest, depositInterest) {
+                // Инициализация свойств банка
+                this.money = money; // Общее количество денег в банке
+                this.maxSupply = maxSupply; // Максимально доступная сумма для кредитования
+                this.loanInterest = loanInterest; // Процентная ставка по кредитам
+                this.depositInterest = depositInterest; // Процентная ставка по депозитам
+            }
+
+            // Метод для расчёта ежемесячного платежа по кредиту
+            calculateLoan(months, amount) {
+                // Проверка на максимальную сумму кредита и доступность средств
+                if (amount > this.maxSupply || amount > this.money) {
+                    console.log('Запрашиваемая сумма превышает максимальный запас или доступные средства.');
+                    return null;
+                }
+                // Расчёт ежемесячной процентной ставки
+                const monthlyInterest = this.loanInterest / 12 / 100;
+                // Расчёт ежемесячного платежа
+                const monthlyPayment = (amount * monthlyInterest) / (1 - (Math.pow(1 + monthlyInterest, -months)));
+                return monthlyPayment.toFixed(2);
+            }
+        }
+
+        // Класс Musician для управления информацией о музыканте
+        class Musician {
+            constructor(pseudonym, name, concertPrice) {
+                // Инициализация свойств музыканта
+                this.pseudonym = pseudonym; // Псевдоним
+                this.name = name; // Настоящее имя
+                this.concertPrice = concertPrice; // Цена за один концерт
+            }
+
+            // Метод для расчёта количества концертов, которые можно дать за определённую сумму
+            calculateConcerts(budget) {
+                // Расчёт количества выступлений
+                const numberOfConcerts = Math.floor(budget / this.concertPrice);
+                return numberOfConcerts;
+            }
+        }
+
+        // Создание объекта класса Bank
+        const myBank = new Bank(100000, 50000, 5, 3);
+        // Вывод информации о ежемесячном платеже по кредиту
+        console.log(`Ежемесячный платеж: ${myBank.calculateLoan(12, 10000)} USD`);
+
+        // Создание объекта класса Musician
+        const musician = new Musician("DJ Example", "John Doe", 2000);
+        // Вывод информации о количестве концертов, которые музыкант может дать за определённую сумму
+        console.log(`Количество концертов за 10000 USD: ${musician.calculateConcerts(10000)}`);
+    </script>
+</body>
+</html>
+<!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+<!--
+Мои комментарии по поводу года (до полного разбора по шагам:)
+
+Каждый класс (Bank и Musician) начинается с объявления и инициализации его свойств.
+
+В классе Bank, метод calculateLoan рассчитывает ежемесячный платёж по кредиту с учётом процентной ставки.
+Предусмотрена проверка на максимально допустимую сумму кредита и доступность средств.
+
+В классе Musician, метод calculateConcerts определяет, сколько концертов музыкант может дать за заданную сумму денег.
+
+В конце скрипта создаются объекты обоих классов, и демонстрируется использование их методов для решения
+практических задач.
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+Теперь, уже в привычной форме, для полного понимания разберу этот код по шагам:
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+
+Задание 1: Класс Bank
+
+Шаг № 1: Конструктор класса Bank
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+constructor(money, maxSupply, loanInterest, depositInterest) {
+    this.money = money; // Общее количество денег в банке
+    this.maxSupply = maxSupply; // Максимально доступная сумма для кредитования
+    this.loanInterest = loanInterest; // Процентная ставка по кредитам
+    this.depositInterest = depositInterest; // Процентная ставка по депозитам
+}
+
+Описание:
+Конструктор класса Bank инициализирует объект с четырьмя свойствами: money (общее количество денег в банке),
+maxSupply (максимальная сумма, доступная для кредитования), loanInterest (процентная ставка по кредитам),
+и depositInterest (процентная ставка по депозитам).
+
+Шаг № 2: Метод calculateLoan
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+calculateLoan(months, amount) {
+    if (amount > this.maxSupply || amount > this.money) {
+        console.log('Запрашиваемая сумма превышает максимальный запас или доступные средства.');
+        return null;
+    }
+    const monthlyInterest = this.loanInterest / 12 / 100;
+    const monthlyPayment = (amount * monthlyInterest) / (1 - (Math.pow(1 + monthlyInterest, -months)));
+    return monthlyPayment.toFixed(2);
+}
+
+Описание:
+Метод calculateLoan принимает два аргумента: months (срок кредита в месяцах) и amount (сумма кредита).
+Сначала проверяет, не превышает ли запрашиваемая сумма максимальный запас или доступные средства банка.
+Затем вычисляет ежемесячную процентную ставку, основываясь на годовой,
+и использует формулу аннуитетного платежа для расчета суммы ежемесячного платежа,
+который округляется до двух знаков после запятой и возвращается как результат.
+
+
+Задание 2: Класс Musician
+
+Шаг № 3: Конструктор класса Musician
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+constructor(pseudonym, name, concertPrice) {
+    this.pseudonym = pseudonym; // Псевдоним
+    this.name = name; // Настоящее имя
+    this.concertPrice = concertPrice; // Цена за один концерт
+}
+
+Описание:
+Конструктор класса Musician инициализирует объект с тремя свойствами: pseudonym (псевдоним музыканта),
+name (настоящее имя музыканта), и concertPrice (цена за один концерт).
+
+Шаг № 4: Метод calculateConcerts
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+calculateConcerts(budget) {
+    const numberOfConcerts = Math.floor(budget / this.concertPrice);
+    return numberOfConcerts;
+}
+
+Описание:
+Метод calculateConcerts принимает один аргумент budget (бюджет) и вычисляет,
+сколько концертов музыкант может дать за эту сумму, делением бюджета на цену одного концерта.
+Результат округляется в меньшую сторону до ближайшего целого числа.
+
+Пример использования классов
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+const myBank = new Bank(100000, 50000, 5, 3);
+console.log(`Ежемесячный платеж: ${myBank.calculateLoan(12, 10000)} USD`);
+
+const musician = new Musician("DJ Example", "John Doe", 2000);
+console.log(`Количество концертов за 10000 USD: ${musician.calculateConcerts(10000)}`);
+
+Описание примера:
+Создается объект myBank класса Bank с начальными параметрами и объект musician класса Musician.
+Затем демонстрируется вызов методов calculateLoan и calculateConcerts для расчета ежемесячного платежа по кредиту
+и количества концертов, соответственно.
+
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+Данный код представляет собой эффективную реализацию объектно-ориентированного подхода к решению задач управления
+финансами в банке и планирования выступлений музыканта, демонстрируя ключевые концепции классов и объектов в JavaScript.
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+-->
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!--
+Вариант выполнения всех заданий №2.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банки и Музыканты (Практическая работа №5. Классы и объекты JS. Вариант №2.)</title>
+</head>
+<body>
+    <h1>Банки и Музыканты (Практическая работа №5. Классы и объекты JS. Вариант №2.)</h1>
+
+    <script>
+        class Bank {
+            constructor() {
+                this.currencies = {
+                    'KZT': {loanInterestRate: 12.5, depositInterestRate: 5.5, moneyAmount: 1000000, maxReserve: 500000},
+                    'RUB': {loanInterestRate: 8.5, depositInterestRate: 4.5, moneyAmount: 2000000, maxReserve: 1000000},
+                    'USD': {loanInterestRate: 5.5, depositInterestRate: 2.5, moneyAmount: 3000000, maxReserve: 1500000}
+                };
+            }
+
+            offerLoan(currency, amount, months) {
+                if (!this.currencies[currency]) {
+                    return "Currency not supported.";
+                }
+                const rate = this.currencies[currency].loanInterestRate;
+                const monthlyRate = rate / 12 / 100;
+                const monthlyPayment = (amount * monthlyRate) / (1 - (Math.pow(1 + monthlyRate, -months)));
+                return monthlyPayment.toFixed(2);
+            }
+        }
+
+        class Musician {
+            constructor(pseudonym, name, genre, concertPrice) {
+                this.pseudonym = pseudonym;
+                this.name = name;
+                this.genre = genre;
+                this.concertPrice = concertPrice;
+            }
+
+            calculatePerformances(amount) {
+                return Math.floor(amount / this.concertPrice);
+            }
+        }
+
+        // Пример использования
+        const bank = new Bank();
+        console.log(bank.offerLoan('USD', 10000, 12)); // Выводит ежемесячный платеж в консоль
+
+        const musician = new Musician("DJ Code", "John Doe", "Electronic", 500);
+        console.log(musician.calculatePerformances(5000)); // Выводит количество выступлений в консоль
+    </script>
+</body>
+</html>
+<!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+<!--
+Теперь для понимания разберем этот код по шагам:
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+Класс Bank
+
+Шаг № 1: Конструктор класса Bank
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+constructor() {
+    this.currencies = {
+        'KZT': {loanInterestRate: 12.5, depositInterestRate: 5.5, moneyAmount: 1000000, maxReserve: 500000},
+        'RUB': {loanInterestRate: 8.5, depositInterestRate: 4.5, moneyAmount: 2000000, maxReserve: 1000000},
+        'USD': {loanInterestRate: 5.5, depositInterestRate: 2.5, moneyAmount: 3000000, maxReserve: 1500000}
+    };
+}
+
+Описание:
+Конструктор класса Bank инициализирует объект, содержащий информацию о различных валютах,
+которыми банк может управлять. Для каждой валюты указаны: процентная ставка по кредитам (loanInterestRate),
+процентная ставка по депозитам (depositInterestRate),
+общая сумма денег (moneyAmount) и максимальный резерв (maxReserve), доступный для кредитования.
+
+Шаг № 2: Метод offerLoan
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+offerLoan(currency, amount, months) {
+    if (!this.currencies[currency]) {
+        return "Currency not supported.";
+    }
+    const rate = this.currencies[currency].loanInterestRate;
+    const monthlyRate = rate / 12 / 100;
+    const monthlyPayment = (amount * monthlyRate) / (1 - (Math.pow(1 + monthlyRate, -months)));
+    return monthlyPayment.toFixed(2);
+}
+
+Описание:
+Метод offerLoan принимает три аргумента: currency (валюта кредита),
+amount (сумма кредита) и months (срок кредита в месяцах). Проверяет, поддерживается ли указанная валюта банком.
+Если да, рассчитывает ежемесячный платеж, используя формулу аннуитетного платежа,
+где monthlyRate — месячная процентная ставка. Результат округляется до двух десятичных знаков.
+
+
+Класс Musician
+
+Шаг № 3: Конструктор класса Musician
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+constructor(pseudonym, name, genre, concertPrice) {
+    this.pseudonym = pseudonym;
+    this.name = name;
+    this.genre = genre;
+    this.concertPrice = concertPrice;
+}
+
+Описание:
+Конструктор класса Musician инициализирует объект с четырьмя свойствами: pseudonym (псевдоним музыканта),
+name (настоящее имя), genre (музыкальный жанр) и concertPrice (цена одного концерта).
+
+Шаг № 4: Метод calculatePerformances
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+calculatePerformances(amount) {
+    return Math.floor(amount / this.concertPrice);
+}
+
+Описание:
+Метод calculatePerformances принимает один аргумент — amount (доступный бюджет) и рассчитывает,
+сколько концертов музыкант может дать за эту сумму.
+Количество выступлений — это целая часть от деления доступного бюджета на цену одного концерта.
+
+Пример использования классов
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+const bank = new Bank();
+console.log(bank.offerLoan('USD', 10000, 12)); // Выводит ежемесячный платеж в консоль
+
+const musician = new Musician("DJ Code", "John Doe", "Electronic", 500);
+console.log(musician.calculatePerformances(5000)); // Выводит количество выступлений в консоль
+
+Описание примера:
+Создается экземпляр класса Bank, после чего вызывается метод offerLoan,
+чтобы рассчитать ежемесячный платеж по кредиту в долларах США на сумму 10 000 долларов сроком на 12 месяцев.
+Затем создается экземпляр класса Musician и вызывается метод calculatePerformances,
+чтобы узнать, сколько концертов музыкант может дать за 5000 долларов.
+
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+Такой код демонстрирует использование классов и объектов для моделирования банковских операций и планирования
+музыкальных выступлений, применяя объектно-ориентированные принципы и методы расчета в JavaScript.
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+-->
+<!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!--
+Вариант выполнения всех заданий №3. Чуть-чуть по другому. Результат виден так-же в консоле.
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банки и Музыканты (Практическая работа №5. Классы и объекты JS. Вариант №3.)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { margin-bottom: 20px; }
+        label { margin-right: 10px; }
+        input, select { margin-bottom: 10px; margin-right: 10px; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Калькулятор кредитов</h2>
+        <label for="currency">Валюта:</label>
+        <select id="currency">
+            <option value="KZT">KZT</option>
+            <option value="RUB">RUB</option>
+            <option value="USD">USD</option>
+        </select>
+        <label for="amount">Сумма:</label>
+        <input type="number" id="amount" placeholder="Сумма кредита">
+        <label for="months">Срок (мес):</label>
+        <select id="months">
+            <option value="12">12</option>
+            <option value="24">24</option>
+            <option value="36">36</option>
+            <option value="48">48</option>
+            <option value="60">60</option>
+            <option value="120">120</option>
+        </select>
+        <button onclick="calculateLoan()">Рассчитать кредит</button>
+    </div>
+    <div class="container">
+        <h2>Калькулятор выступлений</h2>
+        <label for="budget">Ваш бюджет:</label>
+        <input type="number" id="budget" placeholder="Ваш бюджет">
+        <button onclick="calculatePerformances()">Рассчитать выступления</button>
+    </div>
+
+    <script>
+        class Bank {
+            constructor() {
+                this.currencies = {
+                    'KZT': {loanInterestRate: 12.5, moneyAmount: 1000000},
+                    'RUB': {loanInterestRate: 8.5, moneyAmount: 2000000},
+                    'USD': {loanInterestRate: 5.5, moneyAmount: 3000000}
+                };
+            }
+
+            offerLoan(currency, amount, months) {
+                const rate = this.currencies[currency].loanInterestRate;
+                const monthlyRate = rate / 12 / 100;
+                const monthlyPayment = (amount * monthlyRate) / (1 - (Math.pow(1 + monthlyRate, -months)));
+                return monthlyPayment.toFixed(2);
+            }
+        }
+
+        class Musician {
+            constructor(pseudonym, name, genre, concertPrice) {
+                this.pseudonym = pseudonym;
+                this.name = name;
+                this.genre = genre;
+                this.concertPrice = concertPrice;
+            }
+
+            calculatePerformances(budget) {
+                return Math.floor(budget / this.concertPrice);
+            }
+        }
+
+        const bank = new Bank();
+        const musician = new Musician("Поющие трусы", "Великие Музыканты", "Поп", 2000);
+
+        function calculateLoan() {
+            const currency = document.getElementById('currency').value;
+            const amount = parseInt(document.getElementById('amount').value, 10);
+            const months = parseInt(document.getElementById('months').value, 10);
+
+            if (isNaN(amount) || amount <= 0) {
+                alert('Пожалуйста, введите корректную сумму кредита.');
+                return;
+            }
+            if (isNaN(months)) {
+                alert('Пожалуйста, выберите корректный срок кредита.');
+                return;
+            }
+
+            const monthlyPayment = bank.offerLoan(currency, amount, months);
+            console.log(`Ежемесячный платёж: ${monthlyPayment} ${currency}`);
+            alert(`Ежемесячный платёж: ${monthlyPayment} ${currency}`);
+        }
+
+        function calculatePerformances() {
+            const budget = parseInt(document.getElementById('budget').value, 10);
+
+            if (isNaN(budget) || budget <= 0) {
+                alert('Пожалуйста, введите корректный бюджет.');
+                return;
+            }
+
+            const performances = musician.calculatePerformances(budget);
+            console.log(`Количество выступлений: ${performances}`);
+            alert(`Количество выступлений: ${performances}`);
+        }
+    </script>
+</body>
+</html>
+<!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+<!--
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+В код я добавил простые проверки на корректность введённых данных:
+
+Проверка, что сумма кредита и бюджет для музыканта являются числами больше нуля.
+Проверка, что выбран срок кредита.
+
+Так же в примере создаются две формы для ввода данных: одна для расчёта кредита в банке и другая для расчёта количества
+выступлений музыканта.
+При нажатии на кнопку "Рассчитать кредит" или "Рассчитать выступления",
+соответствующие функции считывают введённые пользователем значения,
+проводят необходимые расчёты и выводят результаты в консоль браузера.
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+-->
+<!--
+Теперь для понимания разберем этот код по шагам:
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+
+Шаг № 1: Определение класса Bank
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+class Bank {
+    constructor() {
+        this.currencies = {
+            'KZT': {loanInterestRate: 12.5, moneyAmount: 1000000},
+            'RUB': {loanInterestRate: 8.5, moneyAmount: 2000000},
+            'USD': {loanInterestRate: 5.5, moneyAmount: 3000000}
+        };
+    }
+
+    offerLoan(currency, amount, months) {
+        const rate = this.currencies[currency].loanInterestRate;
+        const monthlyRate = rate / 12 / 100;
+        const monthlyPayment = (amount * monthlyRate) / (1 - (Math.pow(1 + monthlyRate, -months)));
+        return monthlyPayment.toFixed(2);
+    }
+}
+
+Описание:
+Класс Bank представляет банк, который умеет рассчитывать ежемесячные платежи по кредиту для разных валют.
+В конструкторе класса задаются валюты и их параметры: процентная ставка по кредиту и общая сумма денег.
+Метод offerLoan принимает три параметра: валюту кредита (currency),
+сумму кредита (amount) и срок кредита в месяцах (months).
+Затем рассчитывает ежемесячный платеж исходя из процентной ставки, суммы и срока кредита.
+
+Шаг № 2: Определение класса Musician
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+class Musician {
+    constructor(pseudonym, name, genre, concertPrice) {
+        this.pseudonym = pseudonym;
+        this.name = name;
+        this.genre = genre;
+        this.concertPrice = concertPrice;
+    }
+
+    calculatePerformances(budget) {
+        return Math.floor(budget / this.concertPrice);
+    }
+}
+
+Описание:
+Класс Musician представляет музыканта с его уникальными характеристиками и умеет рассчитывать количество выступлений,
+которые музыкант может дать за определенный бюджет.
+В конструкторе класса задаются псевдоним музыканта, его настоящее имя, жанр и цена за одно выступление.
+Метод calculatePerformances принимает бюджет (budget) и вычисляет,
+сколько выступлений можно организовать на эти деньги.
+
+Шаг № 3: Создание экземпляров классов и функций для взаимодействия с пользователем
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+const bank = new Bank();
+const musician = new Musician("Поющие трусы", "Великие Музыканты", "Поп", 2000);
+
+Описание:
+Создаются экземпляры классов Bank и Musician с предопределенными параметрами
+для дальнейшего использования в калькуляторах.
+
+Функция calculateLoan
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+function calculateLoan() {
+    // Получение значений из формы и расчет
+}
+
+Описание:
+Эта функция получает данные от пользователя через форму (валюту, сумму кредита и срок),
+затем использует метод offerLoan объекта bank для расчета ежемесячного платежа и выводит результат пользователю.
+
+Функция calculatePerformances
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+function calculatePerformances() {
+    // Получение бюджета и расчет
+}
+
+Описание:
+Эта функция получает бюджет от пользователя и использует метод calculatePerformances объекта
+musician для расчета количества возможных выступлений. Результат также выводится пользователю.
+
+Интерактивные элементы
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Элементы формы (выпадающие списки и поля ввода) позволяют пользователю ввести необходимые данные для расчетов.
+Кнопки вызывают соответствующие функции (calculateLoan и calculatePerformances),
+которые выполняют расчеты и выводят результаты.
+
+Стилизация
+# ~ ~ ~ ~ ~
+Стили CSS обеспечивают базовое оформление страницы и элементов формы,
+делая интерфейс более понятным и приятным для пользователя.
+
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+Таким образом, код создает интерактивную веб-страницу,
+где пользователи могут рассчитать ежемесячный платеж по кредиту в зависимости от выбранной валюты,
+суммы и срока, а также определить, сколько выступлений музыкант может дать за заданный бюджет.
+# • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
+-->
+<!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->

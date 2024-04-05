@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Функции в JavaScript</title>
+</head>
+<body>
+    <input id="a" type="number"/>
+    <br/>
+    <input id="b" type="number"/>
+    <br/>
+    <input id="c" type="button" value="Вывести наименьшее"/>
+
+    <br/>
+    <br />
+    <label id="result"></label>
+
+    <script>
+
+        function averageScore(scores) {
+    let sum = 0;
+    for (let score of scores) {
+        sum += score;
+    }
+    return sum / scores.length;
+}
+
+let scores = [10, 3, 4, 5, 8, 9];
+let average = averageScore(scores);
+console.log("Средний балл:", average);
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Дата выполнения 04 и 05 АПРЕЛЯ 2024 года.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Работа в классе с презентацией №5: Классы и объекты.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Курс: Разработка Web приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка клиентских сценариев с использованием JavaScript
+
+Классы и объекты.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Задание - ПЕРВОЕ:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Создать объект, описывающий прямоугольник (хранит координаты левой верхней и правой нижней точек),
+и написать следующие функции для работы с таким объектом.
+
+1. Функция принимает объект и выводит информацию о нем.
+2. Функция принимает объект и возвращает его ширину.
+З. Функция принимает объект и возвращает его высоту.
+4. Функция принимает объект и возвращает его площадь.
+5. Функция принимает объект и возвращает его периметр.
+
+Задание - ВТОРОЕ:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Есть класс Person, co свойствами:
+имя, фамилия и квалификация специалиста.
+
+Есть метод, который возвращает строку, включающую в себя всю информацию о сотруднике.
+
+Создайте три экземпляра класса Person.
+
+Посмотрите информацию о сотрудниках и увольте самое слабое звено.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+Урок от 03.04.2024
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задания из презентации №5</title>
+</head>
+<body>
+    <script>
+        // Класс для описания прямоугольника с методами для работы с ним
+        class Rectangle {
+            constructor(x1, y1, x2, y2) {
+                this.x1 = x1;
+                this.y1 = y1;
+                this.x2 = x2;
+                this.y2 = y2;
+            }
+
+            printInfo() {
+                console.log(`Прямоугольник: (${this.x1}, ${this.y1}), (${this.x2}, ${this.y2})`);
+            }
+
+            getWidth() {
+                return Math.abs(this.x2 - this.x1);
+            }
+
+            getHeight() {
+                return Math.abs(this.y2 - this.y1);
+            }
+
+            getArea() {
+                return this.getWidth() * this.getHeight();
+            }
+
+            getPerimeter() {
+                return 2 * (this.getWidth() + this.getHeight());
+            }
+        }
+
+        // Класс для описания сотрудника с методами для вывода информации и повышения
+        class Person {
+            constructor(firstName, lastName, qualification) {
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.qualification = qualification;
+            }
+
+            getInfo() {
+                return `${this.firstName} ${this.lastName}, квалификация: ${this.qualification}`;
+            }
+
+            promote(newQualification) {
+                this.qualification = newQualification;
+                console.log(`${this.firstName} ${this.lastName} теперь имеет квалификацию ${this.qualification}`);
+            }
+        }
+
+        const rect = new Rectangle(0, 5, 5, 0);
+        rect.printInfo();
+        console.log(`Ширина: ${rect.getWidth()}, Высота: ${rect.getHeight()}, Площадь: ${rect.getArea()}, Периметр: ${rect.getPerimeter()}`);
+
+        const persons = [
+            new Person("Иван", "Иванов", 8),
+            new Person("Петр", "Петров", 6),
+            new Person("Сидор", "Сидоров", 7)
+        ];
+
+        persons.forEach(person => console.log(person.getInfo()));
+
+        // Улучшенный способ увольнения самого слабого звена без изменения исходного массива
+        const weakestIndex = persons.reduce((indexMin, current, index, array) =>
+            array[indexMin].qualification > current.qualification ? index : indexMin, 0);
+        console.log(`Уволен: ${persons[weakestIndex].getInfo()}`);
+        persons.splice(weakestIndex, 1);
+
+        console.log("После увольнения:");
+        persons.forEach(person => console.log(person.getInfo()));
+    </script>
+</body>
+</html>
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Задание ПЕРВОЕ: Работа с объектом, описывающим прямоугольник
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Шаг № 1: Конструктор класса Rectangle
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+constructor(x1, y1, x2, y2) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+}
+
+Описание:
+Конструктор класса Rectangle инициализирует новый экземпляр прямоугольника,
+храня координаты его левой верхней (x1, y1) и правой нижней (x2, y2) точек.
+
+Шаг № 2: Метод printInfo
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+printInfo() {
+    console.log(`Прямоугольник: (${this.x1}, ${this.y1}), (${this.x2}, ${this.y2})`);
+}
+
+Описание:
+Метод printInfo выводит информацию о прямоугольнике, включая координаты его вершин.
+
+Шаг № 3: Метод getWidth
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+getWidth() {
+    return Math.abs(this.x2 - this.x1);
+}
+
+Описание:
+Метод getWidth вычисляет и возвращает ширину прямоугольника как абсолютное значение разности координат x двух вершин.
+
+Шаг № 4: Метод getHeight
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+getHeight() {
+    return Math.abs(this.y2 - this.y1);
+}
+
+Описание:
+Метод getHeight вычисляет и возвращает высоту прямоугольника как абсолютное значение разности координат y двух вершин.
+
+Шаг № 5: Метод getArea
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+getArea() {
+    return this.getWidth() * this.getHeight();
+}
+
+Описание:
+Метод getArea вычисляет и возвращает площадь прямоугольника, умножая его ширину на высоту.
+
+Шаг № 6: Метод getPerimeter
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+getPerimeter() {
+    return 2 * (this.getWidth() + this.getHeight());
+}
+
+Описание:
+Метод getPerimeter вычисляет и возвращает периметр прямоугольника, удваивая сумму его ширины и высоты.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Задание ВТОРОЕ: Работа с классом Person
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Шаг № 7: Конструктор класса Person
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+constructor(firstName, lastName, qualification) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.qualification = qualification;
+}
+
+Описание:
+Конструктор класса Person инициализирует новый экземпляр сотрудника, храня его имя (firstName),
+фамилию (lastName) и квалификацию (qualification).
+
+Шаг № 8: Метод getInfo
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+getInfo() {
+    return `${this.firstName} ${this.lastName}, квалификация: ${this.qualification}`;
+}
+
+Описание:
+Метод getInfo возвращает строку с информацией о сотруднике, включая его имя, фамилию и квалификацию.
+
+Шаг № 9: Метод promote (не используется в задании)
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+promote(newQualification) {
+    this.qualification = newQualification;
+    console.log(`${this.firstName} ${this.lastName} теперь имеет квалификацию ${this.qualification}`);
+}
+
+Описание:
+Метод promote повышает квалификацию сотрудника до указанного уровня и выводит соответствующее сообщение.
+
+Шаг № 10: Увольнение "слабого звена"
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+const weakestIndex = persons.reduce((indexMin, current, index, array) =>
+    array[indexMin].qualification > current.qualification ? index : indexMin, 0);
+console.log(`Уволен: ${persons[weakestIndex].getInfo()}`);
+persons.splice(weakestIndex, 1);
+
+Описание:
+Этот код идентифицирует сотрудника с наименьшей квалификацией (слабое звено) и удаляет его из массива persons.
+Затем выводит информацию об уволенном сотруднике.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+Итак, каждый шаг кода продемонстрировал как мне кажется ключевые аспекты ООП в JavaScript,
+включая создание классов, методов, и работу с объектами и массивами.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->

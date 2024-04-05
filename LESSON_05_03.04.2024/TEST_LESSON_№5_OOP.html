@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ООП в JavaScript</title>
+</head>
+<body>
+    <script>
+       let fruits = new Array() // = let fruits = []
+
+        let user = {}
+        class Rectangle {
+            // properties
+            // methods
+            // init()
+            constructor (awidth, aheight) {
+                this.width  = awidth
+                this.height = aheight
+            }
+
+            getArea () {
+                return this.width * this.height
+            }
+        }
+
+        class Square extends Rectangle {
+            constructor (aside) {
+                super(aside, aside)
+            }
+        }
+
+        let rect_1 = new Rectangle(3,4)
+        console.log(rect_1)
+        console.log(rect_1.getArea())
+
+        let square_1 = new Square(3)
+        console.log(square_1)
+        console.log(square_1.getArea())
+
+        class Circle {
+            static #pi = 3.1459;
+
+            constructor (aradius) {
+                this.radius = aradius
+            }
+
+            getArea() {
+                return this.#pi * (this.radius ** 2)
+            }
+        }
+
+        let circle_1 = new Circle(3)
+        // circle_1.#pi = 4
+        // __init__
+
+        console.log(circle_1)
+        console.log(circle_1.getArea())
+
+    </script>
+</body>
+</html>
