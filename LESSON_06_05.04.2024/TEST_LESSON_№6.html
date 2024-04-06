@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Вкладки, Like Button и Калькулятор</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f7f7f7; text-align: center; }
+  #tabs { display: flex; justify-content: center; margin-bottom: 20px; }
+  .tab-button { background-color: #ddd; border: none; padding: 10px; cursor: pointer; margin: 5px;
+   transition: background-color 0.3s; }
+  .tab-button:hover, .tab-button.active { background-color: #ccc; }
+  .tab-content { display: none; padding: 20px; border: 2.5px solid #ddd; background-color: #fff;
+   box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 10px; margin: auto; width: 80%; }
+  .tab-content.active { display: block; }
+  #likeBtn { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer;
+   font-size: 20px; border-radius: 25px; transition: background-color 0.3s; }
+  #likeBtn:hover { background-color: #43a047; }
+  #calculator { max-width: 220px; margin: 40px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;
+   background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  #display { width: calc(100% - 20px); margin: 0 auto 10px; padding: 10px; font-size: 18px; border: 1px solid #ddd;
+   border-radius: 5px; background-color: #f7f7f7; box-shadow: inset 0 0 5px rgba(0,0,0,0.1); text-align: right; }
+  #buttons { display: flex; flex-wrap: wrap; justify-content: center; }
+  #buttons button { width: 50px; height: 50px; margin: 5px; font-size: 18px; border: none; border-radius: 5px;
+   cursor: pointer; transition: background-color 0.3s; }
+  #buttons button:hover { background-color: #e7e7e7; }
+</style>
+</head>
+<body>
+
+<div id="tabs">
+  <button class="tab-button active" onclick="openTab(event, 'Tab1')">HTML</button>
+  <button class="tab-button" onclick="openTab(event, 'Tab2')">CSS</button>
+  <button class="tab-button" onclick="openTab(event, 'Tab3')">JavaScript</button>
+</div>
+
+<div id="Tab1" class="tab-content active">
+  <h3>HTML</h3>
+  <p>HTML — это язык разметки гипертекстовых документов.</p>
+      <p>Он нужен, чтобы отображать в браузере специальным образом отформатированный документ с множеством
+      вложенных элементов: заголовками, абзацами, списками, гиперссылками, медиаисточниками,
+      расположением изображений, видео и аудио.</p>
+
+      <p>Дословно HTML означает Hypertext Markup Language (язык гипертекстовой разметки).</p>
+            <p>Из расшифровки названия понятно, что инструмент применяется для управления отображением контента
+    на интернет-странице, его структуризации.</p>
+
+      <p>Файлы HTML обычно имеют расширение «.html» или «.htm».</p>
+      <p>Это стандартное расширение для веб-страниц, написанных на языке разметки.</p>
+      <p><b>Пример:</b> Hello, World!</p>
+</div>
+
+<div id="Tab2" class="tab-content">
+  <h3>CSS</h3>
+  <p>CSS — это язык описания внешнего вида документа, то есть он отвечает за то, как выглядят веб-страницы:
+      цвет фона и декоративных элементов, размер и стиль шрифтов.</p>
+
+      <p>Термин расшифровывается как Cascading Style Sheets (каскадные таблицы стилей).</p>
+
+      <p>CSS взаимодействует с другим языком разметки — HTML, который отвечает за размещение элементов на странице.</p>
+
+        <p>Можно представить, что HTML — это такая общая, условная схема, как грубый чертеж планировки квартиры,
+            из которого можно узнать, где находятся двери и окна, а с какой стороны кухня или коридор.</p>
+
+            <p>В таком случае CSS для сайта — это дизайн-проект,
+            который помогает увидеть более детальную планировку с цветом стен, мебелью и декором.</p>
+  <p><b>Пример:</b> body { color: red; }</p>
+</div>
+
+<div id="Tab3" class="tab-content">
+  <h3>JavaScript</h3>
+  <p>JavaScript – это язык программирования, который используют разработчики для создания интерактивных веб-страниц.
+      Функции JavaScript могут улучшить удобство взаимодействия пользователя с веб-сайтом:
+      от обновления ленты новостей в социальных сетях и до отображения анимации и интерактивных карт.</p>
+
+      <p>JavaScript является языком программирования при разработки скриптов для выполнения на стороне клиента,
+      что делает его одной из базовых технологий во всемирной сети Интернет.</p>
+
+      <p>Например, карусель изображения, выпадающее по клику меню и динамично меняющиеся цвета элементов на веб-странице,
+      которые вы видите во время просмотра страниц в Интернете, выполнены при помощи JavaScript.</p>
+  <p><b>Пример:</b> alert('Hello, World!');</p>
+</div>
+
+<button id="likeBtn">
+  <span class="like-icon">&#128077;</span>
+  <span id="likeCount">0</span> Likes
+</button>
+<audio id="likeSound" src="like-sound.mp3"></audio>
+
+<div id="calculator">
+  <input id="display" type="text" readonly>
+  <div id="buttons">
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button onclick="press('0')">0</button>
+    <button onclick="press('.')">.</button>
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="press('+')">+</button>
+    <button onclick="press('-')">-</button>
+    <button onclick="press('*')">*</button>
+    <button onclick="press('/')">/</button>
+    <button onclick="calculate()">=</button>
+  </div>
+</div>
+
+<script>
+let expression = '';
+
+function press(num) {
+  expression += num;
+  document.getElementById('display').value = expression;
+}
+
+function calculate() {
+  try {
+    let result = eval(expression);
+    document.getElementById('display').value = result;
+    expression = result.toString();
+  } catch (e) {
+    document.getElementById('display').value = 'Error';
+    expression = '';
+  }
+}
+
+function clearDisplay() {
+  expression = '';
+  document.getElementById('display').value = '';
+}
+
+var count = 0;
+document.getElementById("likeBtn").onclick = function() {
+  count++;
+  document.getElementById("likeCount").innerHTML = count + " Likes";
+  document.getElementById("likeSound").play();
+};
+
+function openTab(evt, tabName) {
+  var i, tabcontent, tabbuttons;
+  tabcontent = document.getElementsByClassName("tab-content");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].classList.remove("active");
+  }
+  tabbuttons = document.getElementsByClassName("tab-button");
+  for (i = 0; i < tabbuttons.length; i++) {
+    tabbuttons[i].classList.remove("active");
+  }
+  document.getElementById(tabName).classList.add("active");
+  evt.currentTarget.classList.add("active");
+}
+</script>
+
+</body>
+</html>
