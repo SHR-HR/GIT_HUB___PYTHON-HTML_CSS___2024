@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Улучшенный Список Дел с Кнопкой Выполнено</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafa;
+  }
+  .container {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  h2 {
+    color: #333;
+    text-align: center;
+  }
+  #todoInput {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  #todoList {
+    list-style: none;
+    padding: 0;
+  }
+  .todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #eee;
+    border-radius: 4px;
+  }
+  .todo-item.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  .action-button {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  .delete {
+    color: #d11a2a;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Список Дел</h2>
+  <input type="text" id="todoInput" placeholder="Добавить новое дело..." onkeypress="handleKeypress(event)">
+  <ul id="todoList"></ul>
+</div>
+
+<script>
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+function saveTodos() {
+  localStorage.setItem('todos', JSON.stringify(todos));
+  renderTodos();
+}
+
+function addTodo() {
+  const input = document.getElementById('todoInput');
+  if (input.value.trim()) {
+    todos.push({ text: input.value.trim(), completed: false });
+    input.value = '';
+    saveTodos();
+  }
+}
+
+function handleKeypress(event) {
+  if (event.key === "Enter") {
+    addTodo();
+  }
+}
+
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  saveTodos();
+}
+
+function toggleCompletion(index) {
+  todos[index].completed = !todos[index].completed;
+  saveTodos();
+}
+
+function renderTodos() {
+  const list = document.getElementById('todoList');
+  list.innerHTML = '';
+  todos.forEach((todo, index) => {
+    const item = document.createElement('li');
+    item.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+    item.innerHTML = `
+      <span class="toggle" onclick="toggleCompletion(${index})">${todo.text}</span>
+      <span class="action-button delete" onclick="deleteTodo(${index})">✖</span>
+      <span class="action-button complete" onclick="toggleCompletion(${index})">✅</span>
+    `;
+    list.appendChild(item);
+  });
+}
+
+renderTodos();
+</script>
+</body>
+</html>

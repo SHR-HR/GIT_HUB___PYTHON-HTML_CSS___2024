@@ -1,0 +1,340 @@
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+Дата выполнения 8 и 9 АПРЕЛЯ 2024 года.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Практическая работа
+# ~ ~ ~ ~ ~ ~ ~ ~ ~
+Курс: Разработка Web приложений на Python, с применением фреймворка Django
+
+Дисциплина: Разработка клиентских сценариев с использованием JavaScript
+
+Практическая работа №7: BOM, LocalStorage, Cookie.
+
+
+
+Выполните следующие задание:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Задание:
+# ~ ~ ~ ~ ~
+Сделать приложение (to-do), в приложении пользователь сможет записывать,
+удалять, отмечать, как сделанными свои дела.
+Используйте CSS, чтобы красиво оформить.
+Все, что делает пользователь должно быть записано в локальное хранилище,
+также при перезагрузке страницы все данные должны отображаться.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Урок от 08.04.2024
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Список Дел</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 5px;
+  }
+  .todo-input, .todo-select, button {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+  }
+  .todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .action-button {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .hide {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Мой расширенный список дел</h2>
+  <input type="text" id="todoInput" class="todo-input" placeholder="Добавить новое дело...">
+  <select id="todoPriority" class="todo-select">
+    <option value="normal">Нормальный приоритет</option>
+    <option value="high">Высокий приоритет</option>
+    <option value="low">Низкий приоритет</option>
+  </select>
+  <button onclick="addTodo()">Добавить</button>
+  <div>
+    Показать:
+    <button onclick="filterTodos('all')">Все</button>
+    <button onclick="filterTodos('completed')">Выполненные</button>
+    <button onclick="filterTodos('active')">Активные</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+
+<script>
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+function saveTodos() {
+  localStorage.setItem('todos', JSON.stringify(todos));
+  renderTodos();
+}
+
+function addTodo() {
+  const input = document.getElementById('todoInput');
+  const priority = document.getElementById('todoPriority').value;
+  if (input.value.trim()) {
+    todos.push({ text: input.value.trim(), completed: false, priority: priority });
+    input.value = '';
+    saveTodos();
+  }
+}
+
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  saveTodos();
+}
+
+function toggleCompletion(index) {
+  todos[index].completed = !todos[index].completed;
+  saveTodos();
+}
+
+function filterTodos(filter) {
+  const todoListItems = document.querySelectorAll('.todo-item');
+  todoListItems.forEach((item, index) => {
+    const shouldBeVisible =
+      filter === 'all' ||
+      (filter === 'completed' && todos[index].completed) ||
+      (filter === 'active' && !todos[index].completed);
+    item.classList.toggle('hide', !shouldBeVisible);
+  });
+}
+
+function renderTodos() {
+  const list = document.getElementById('todoList');
+  list.innerHTML = '';
+  todos.forEach((todo, index) => {
+    const item = document.createElement('li');
+    let priorityText = '';
+    switch(todo.priority) {
+      case 'high': priorityText = 'Высокий'; break;
+      case 'normal': priorityText = 'Нормальный'; break;
+      case 'low': priorityText = 'Низкий'; break;
+    }
+    item.className = `todo-item`;
+    item.innerHTML = `
+      <span onclick="toggleCompletion(${index})" style="flex-grow: 1;
+       ${todo.completed ? 'text-decoration: line-through;' : ''}">
+        ${todo.text} <span style="font-size: smaller;">(${priorityText})</span>
+      </span>
+      <span class="action-button" onclick="deleteTodo(${index})">❌</span>
+      <span class="action-button" onclick="toggleCompletion(${index})">✅</span>
+    `;
+    list.appendChild(item);
+  });
+}
+
+document.getElementById('todoInput').addEventListener('keypress', function(event) {
+  if (event.key === 'Enter') {
+    addTodo();
+  }
+});
+
+saveTodos(); // Инициализация списка дел при загрузке страницы
+</script>
+</body>
+</html>
+<!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+<!--
+Личные комментарии к коду:
+
+Я добавил рядом с кнопкой удаления (❌) кнопку выполнения (✅).
+Так-же, мы можем теперь добавлять новые дела, указывая их приоритет через выпадающий список.
+К тому же, у меня еще рядом с каждым делом в списке, отображается его приоритет маленьким шрифтом и в скобках.
+Попытался добавить нормальную возможность фильтровать дела по их статусу: все, выполненные, активные.
+(подсказки нашел в гидхабе)
+При добавлении, удалении или изменении статуса дела, информация автоматически сохраняется в localStorage,
+что позволяет сохранять состояние списка дел между сессиями браузера.
+Ну и под конец, подкрутил адаптивный дизайн и улучшенную структуру кода.
+
+Как мне кажется, такое изменение улучшает интерфейс пользователя, делая его более интуитивно понятным и функциональным.
+После разбора кода, накидаю еще пору строк комментариев.
+ -->
+<!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+<!--
+Шаг № 1: HTML-структура
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Прежде всего, код HTML обеспечивает структуру для приложения списка дел.
+В нем определены основные элементы пользовательского интерфейса:
+поле для ввода задачи, выпадающий список для выбора приоритета,
+кнопки для фильтрации и список для отображения задач.
+
+Ключевые элементы:
+
+<input type="text" id="todoInput">: Поле для ввода текста новой задачи.
+
+<select id="todoPriority">: Выпадающий список для выбора приоритета задачи. Содержит три опции:
+"Нормальный приоритет", "Высокий приоритет" и "Низкий приоритет".
+
+<button> элементы: Кнопки для добавления новой задачи и фильтрации списка задач.
+
+<ul id="todoList"></ul>: Список, где будут отображаться задачи.
+
+
+Шаг № 2: CSS Стилизация
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+CSS код обеспечивает визуальное оформление приложения.
+Стили определены для контейнера приложения, текстовых полей,
+кнопок и элементов списка задач, делая интерфейс приятным и читаемым.
+
+Пример стилизации контейнера:
+
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+Описание:
+Этот стиль определяет внешний вид основного контейнера приложения,
+включая его размеры, фон, тени и скругление углов.
+
+Шаг № 3: JavaScript - saveTodos()
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+function saveTodos() {
+  localStorage.setItem('todos', JSON.stringify(todos));
+  renderTodos();
+}
+
+Описание:
+Эта функция сохраняет текущее состояние списка задач в localStorage,
+преобразовывая массив todos в строку формата JSON.
+После сохранения вызывается renderTodos() для обновления отображаемого списка задач.
+
+Шаг № 4: JavaScript - addTodo()
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+function addTodo() {
+  const input = document.getElementById('todoInput');
+  const priority = document.getElementById('todoPriority').value;
+  if (input.value.trim()) {
+    todos.push({ text: input.value.trim(), completed: false, priority: priority });
+    input.value = '';
+    saveTodos();
+  }
+}
+
+Описание:
+Эта функция добавляет новую задачу в массив todos и обновляет localStorage через saveTodos().
+Задача включает в себя текст из текстового поля, приоритет из выпадающего списка и флаг completed,
+указывающий на статус задачи.
+
+Шаг № 5: JavaScript - deleteTodo()
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  saveTodos();
+}
+
+Описание:
+Функция удаляет задачу из массива todos по индексу и обновляет хранилище.
+index задачи определяется при создании HTML-элемента задачи в renderTodos().
+
+Шаг № 6: JavaScript - toggleCompletion()
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+function toggleCompletion(index) {
+  todos[index].completed = !todos[index].completed;
+  saveTodos();
+}
+
+Описание:
+Переключает статус задачи между выполненной и невыполненной. Изменения сохраняются в localStorage.
+
+Шаг № 7: JavaScript - filterTodos()
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+function filterTodos(filter) {
+  const todoListItems = document.querySelectorAll('.todo-item');
+  todoListItems.forEach((item, index) => {
+    const shouldBeVisible =
+      filter === 'all' ||
+      (filter === 'completed' && todos[index].completed) ||
+      (filter === 'active' && !todos[index].completed);
+    item.classList.toggle('hide', !shouldBeVisible);
+  });
+}
+
+Описание:
+Фильтрует задачи для отображения в зависимости от их статуса.
+Использует класс .hide для управления видимостью элементов.
+
+Шаг № 8: JavaScript - renderTodos()
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+function renderTodos() {
+  const list = document.getElementById('todoList');
+  list.innerHTML = '';
+  todos.forEach((todo, index) => {
+    const item = document.createElement('li');
+    let priorityText = '';
+    switch(todo.priority) {
+      case 'high': priorityText = 'Высокий'; break;
+      case 'normal': priorityText = 'Нормальный'; break;
+      case 'low': priorityText = 'Низкий'; break;
+    }
+    item.className = `todo-item`;
+    item.innerHTML = `
+      <span onclick="toggleCompletion(${index})" style="flex-grow: 1;
+       ${todo.completed ? 'text-decoration: line-through;' : ''}">
+        ${todo.text} <span style="font-size: smaller;">(${priorityText})</span>
+      </span>
+      <span class="action-button" onclick="deleteTodo(${index})">❌</span>
+      <span class="action-button" onclick="toggleCompletion(${index})">✅</span>
+    `;
+    list.appendChild(item);
+  });
+}
+
+Описание:
+Генерирует HTML для каждой задачи в массиве todos, добавляя ее в DOM.
+Отображает текст задачи, ее приоритет и предоставляет кнопки для изменения статуса и удаления задачи.
+Визуально выделяет выполненные задачи.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+По итогу, что хочу сказать.... как мне кажется, этот код демонстрирует базовые принципы создания интерактивного
+веб-приложения с использованием HTML, CSS и JavaScript, обеспечивая сохранность данных между сессиями
+(что за частую тоже важно) с помощью localStorage. (тем более мы обсуждали сессии на уроке, решил это же оставить в ПЗ)
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
