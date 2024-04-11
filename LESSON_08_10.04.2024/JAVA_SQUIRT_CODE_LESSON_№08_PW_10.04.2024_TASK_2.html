@@ -1,0 +1,453 @@
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+Дата выполнения 11 АПРЕЛЯ 2024 года.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~
+Практическая работа
+# ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Курс: Разработка Web приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка клиентских сценариев с использованием JavaScript
+Практическая работа №8.1: : Формы, регулярные выражения.
+
+
+Выполните следующие задание:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Задание 2:
+# ~ ~ ~ ~ ~
+
+Создать небольшой веб-сайт:
+🚀 Страница, на которую попадает пользователь, это страница с формой для регистрации.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+🚀 После нажатия на кнопку Sign Up, необходимо проверить корректность введенных данных.
+
+
+Почтовый адрес:
+# ~ ~ ~ ~ ~ ~ ~
+🚀 обязательное поле;
+🚀 только буквенные символы, точка, дефис, нижнее подчер-кивание;
+🚀 обязательно присутствие символа @ и домена после @;
+🚀 до символа @ должно быть минимум 3 других символа.
+
+
+Пароль:
+# ~ ~ ~
+🚀 обязательное поле;
+🚀 минимум 8 символов;
+🚀 обязательно должны присутствовать: 1 буква в нижнем регистре, 1 буква в верхнем регистре и 1 цифра.
+
+
+Подтверждение пароля:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+🚀 обязательное поле;
+🚀 должно совпадать с данными в предыдущем поле.
+
+
+🚀 Если данные введены некорректно, то необходимо вывести ошибки пользователю.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Урок от 10.04.2024
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрационная форма</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+
+  .form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-group input[type="email"],
+  .form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+  }
+
+  .password-toggle {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  .password-toggle img {
+    width: 20px;
+    height: auto;
+    transition: transform 0.3s;
+  }
+
+  .password-toggle:hover img {
+    transform: scale(1.2);
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  #errorMessages {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+
+  #errorMessages ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  #errorMessages li {
+    color: #ff0000;
+    margin-bottom: 10px;
+  }
+  .error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <form id="registrationForm">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" required>
+      <span class="password-toggle" onclick="togglePasswordVisibility()">
+        <img src="eye-closed.png" alt="Показать пароль" id="passwordToggleIcon">
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Подтверждение пароля:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+    </div>
+
+    <button type="submit">Sign Up</button>
+    <button type="button" id="generatePassword">Сгенерировать пароль</button>
+    <button type="button" id="clearData">Очистить данные</button>
+  </form>
+</div>
+
+<div id="errorMessages"></div>
+
+<script>
+document.getElementById('registrationForm').onsubmit = function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы для проверки данных
+    validateForm();
+};
+
+document.getElementById('generatePassword').onclick = function() {
+    var generatedPassword = generateRandomPassword(8, 98); // Генерируем пароль рандомной длины от 8 до 98 символов
+    document.getElementById('password').value = generatedPassword;
+    document.getElementById('confirmPassword').value = generatedPassword;
+};
+
+document.getElementById('clearData').onclick = function() {
+    clearUserData();
+};
+
+function generateRandomPassword(minLength, maxLength) {
+    var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    var password = "";
+    var length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+    for (var i = 0; i < length; i++) {
+        var randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+
+function togglePasswordVisibility() {
+    var passwordInput = document.getElementById('password');
+    var passwordToggleIcon = document.getElementById('passwordToggleIcon');
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggleIcon.src = "eye-open.png";
+    } else {
+        passwordInput.type = "password";
+        passwordToggleIcon.src = "eye-closed.png";
+    }
+}
+
+function clearUserData() {
+    localStorage.removeItem('userData');
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('confirmPassword').value = '';
+}
+
+function validateForm() {
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+
+    var errors = [];
+
+    // Валидация почтового адреса
+    if (!validateEmail(email)) {
+        errors.push("Пожалуйста, введите корректный почтовый адрес.");
+    }
+
+    // Валидация пароля
+    if (!validatePassword(password)) {
+        errors.push("Пароль должен быть не менее 8 символов и содержать как минимум одну заглавную букву, одну строчную букву и одну цифру.");
+    }
+
+    // Проверка совпадения пароля и его подтверждения
+    if (password !== confirmPassword) {
+        errors.push("Пароль и его подтверждение не совпадают.");
+    }
+
+    // Вывод ошибок, если они есть
+    if (errors.length > 0) {
+        displayErrors(errors);
+    } else {
+        // Если ошибок нет, выводим зарегистрированные данные в консоль
+        displayFormData(email, password);
+    }
+}
+
+function validateEmail(email) {
+    var emailRegex = /^[A-Za-z0-9._-]{3,}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+function validatePassword(password) {
+    // Пароль должен быть не менее 8 символов
+    if (password.length < 8) {
+        return false;
+    }
+
+    // Пароль должен содержать как минимум одну цифру
+    var hasNumber = /\d/.test(password);
+    if (!hasNumber) {
+        return false;
+    }
+
+    // Пароль должен содержать как минимум одну заглавную и одну строчную букву
+    var hasLowercase = /[a-z]/.test(password);
+    var hasUppercase = /[A-Z]/.test(password);
+    if (!hasLowercase || !hasUppercase) {
+        return false;
+    }
+
+    return true;
+}
+
+function displayErrors(errors) {
+    var errorMessagesContainer = document.getElementById('errorMessages');
+    errorMessagesContainer.innerHTML = '';
+
+    errors.forEach(function(error) {
+        var errorMessage = document.createElement('div');
+        errorMessage.className = 'error-message';
+        errorMessage.textContent = error;
+        errorMessagesContainer.appendChild(errorMessage);
+    });
+}
+
+function displayFormData(email, password) {
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    // Сохраняем данные пользователя в локальное хранилище браузера
+    saveUserData(email, password);
+}
+
+function saveUserData(email, password) {
+    // Сохраняем данные пользователя в локальное хранилище браузера
+    localStorage.setItem('userData', JSON.stringify({ email: email, password: password }));
+}
+</script>
+
+</body>
+</html>
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+📝 Ну, а теперь "по старинке", вперед к разбору кода!!!
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 1: Создание регистрационной формы
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Описание функции: Создание HTML-структуры
+
+Пример кода:
+
+<div class="form-container">
+  <form id="registrationForm">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    ...
+  </form>
+</div>
+
+Описание:
+
+form-container: Элемент-контейнер, который стилизован для отображения формы на странице.
+Обеспечивает визуальное оформление блока формы.
+form с id registrationForm: Сама форма регистрации, в которую пользователь будет вводить данные.
+form-group: Группа элементов формы, включающая в себя метку (label) и поле ввода (input).
+Позволяет структурировать форму на отдельные блоки для улучшения читаемости.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 2: *Тоггл видимости пароля
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Описание функции: togglePasswordVisibility
+
+Пример кода:
+
+function togglePasswordVisibility() {
+    var passwordInput = document.getElementById('password');
+    var passwordToggleIcon = document.getElementById('passwordToggleIcon');
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggleIcon.src = "eye-open.png";
+    } else {
+        passwordInput.type = "password";
+        passwordToggleIcon.src = "eye-closed.png";
+    }
+}
+
+Описание:
+
+Функция togglePasswordVisibility изменяет тип поля ввода пароля между password и text,
+что позволяет показывать или скрывать введенный пароль.
+Иконка глаза меняется в зависимости от состояния видимости пароля.
+
+⚠️
+* Термин "тоггл" (toggle) в контексте программирования и веб-разработки обычно означает переключение между
+двумя состояниями.
+Это может быть переключение видимости элемента, включение/выключение опции,
+изменение состояния кнопки или любой другой интерфейсный элемент, который имеет два противоположных состояния,
+между которыми можно переключаться.
+
+⚠️
+** Таким образом, "тоггл" — это действие или механизм переключения между двумя альтернативными состояниями.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 3: Валидация формы
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Описание функции: validateForm
+
+Пример кода:
+
+function validateForm() {
+    var email = document.getElementById('email').value;
+    ...
+    var errors = [];
+    if (!validateEmail(email)) {
+        errors.push("Пожалуйста, введите корректный почтовый адрес.");
+    }
+    ...
+}
+
+Описание:
+
+validateForm проверяет введенные данные в форме на соответствие определенным критериям
+(например, формату email и требованиям к паролю). В случае обнаружения ошибок,
+они собираются в массив errors и отображаются пользователю.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 4: Генерация случайного пароля
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Описание функции: generateRandomPassword
+
+Пример кода:
+
+function generateRandomPassword(minLength, maxLength) {
+    var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    var password = "";
+    var length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+    for (var i = 0; i < length; i++) {
+        var randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+
+Описание:
+
+generateRandomPassword генерирует случайный пароль на основе заданного набора символов.
+Длина пароля выбирается случайно в пределах указанных границ minLength и maxLength.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 5: Отображение ошибок
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Описание функции: displayErrors
+
+Пример кода:
+
+function displayErrors(errors) {
+    var errorMessagesContainer = document.getElementById('errorMessages');
+    errorMessagesContainer.innerHTML = '';
+    errors.forEach(function(error) {
+        var errorMessage = document.createElement('div');
+        errorMessage.className = 'error-message';
+        errorMessage.textContent = error;
+        errorMessagesContainer.appendChild(errorMessage);
+    });
+}
+
+Описание:
+
+Функция displayErrors отображает список ошибок валидации в специально предназначенном для этого контейнере.
+Она очищает предыдущие сообщения об ошибках и добавляет новые, основываясь на содержимом массива errors.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+📝 Ну, что-ж, получается, эти шаги описывают основные функциональные части нашей регистрационной формы.
+Каждый шаг имеет свою цель и реализацию, способствующие созданию интерактивной и удобной для пользователя
+формы регистрации.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->

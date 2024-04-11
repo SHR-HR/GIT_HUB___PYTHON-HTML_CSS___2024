@@ -1,0 +1,538 @@
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+Дата выполнения 10 АПРЕЛЯ 2024 года.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~
+Практическая работа
+# ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Курс: Разработка Web приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка клиентских сценариев с использованием JavaScript
+Практическая работа №8.1: : Формы, регулярные выражения.
+
+
+Выполните следующие задание:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Задание 1:
+# ~ ~ ~ ~ ~
+
+🚀 Создать html-страницу с формой для заполнения информации о пользователе.
+🚀 Добавить в каждое поле регулярные выражения.
+🚀 После заполнения формы вывести всю введенную информацию в текстовом виде.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Урок от 10.04.2024
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрационная форма</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+
+  .form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-group input[type="text"], .form-group input[type="date"], .form-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+  }
+
+  .form-group input[type="radio"], .form-group input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  .radio-group, .checkbox-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .radio-group label, .checkbox-group label {
+    margin-right: 20px;
+    white-space: nowrap;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .result-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+  }
+
+  .result-container h2 {
+  text-align: center;
+  color: #007bff;
+  }
+
+  .result-container table {
+  width: 100%;
+  border-collapse: collapse;
+  }
+
+  .result-container table, .result-container th, .result-container td {
+  border: 1px solid #ddd;
+  }
+
+  .result-container th, .result-container td {
+  padding: 8px;
+  text-align: left;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <form id="registrationForm">
+    <div class="form-group">
+      <label for="firstName">Имя:</label>
+      <input type="text" id="firstName" name="firstName" pattern="^[A-Za-zА-Яа-яЁё]+$" required>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Фамилия:</label>
+      <input type="text" id="lastName" name="lastName" pattern="^[A-Za-zА-Яа-яЁё]+$" required>
+    </div>
+
+    <div class="form-group">
+      <label for="birthdate">Дата рождения:</label>
+      <input type="date" id="birthdate" name="birthdate" required>
+    </div>
+
+    <div class="form-group radio-group">
+      <label>Пол:</label>
+      <label><input type="radio" id="male" name="gender" value="Мужской" required>Мужской</label>
+      <label><input type="radio" id="female" name="gender" value="Женский">Женский</label>
+      <label><input type="radio" id="fagot" name="gender" value="Заднеприводный">Заднеприводный</label>
+      <label><input type="radio" id="scabbards" name="gender" value="Ножницы">Ножницы</label>
+      <label><input type="radio" id="undecided(s)" name="gender" value="Не определился(ась)">Не определился (ась)</label>
+    </div>
+
+    <div class="form-group">
+            <label for="country">Страна:</label>
+            <select id="country" name="country" required>
+                <option value="">Выберите страну</option>
+                <option value="Россия">Россия</option>
+                <option value="Казахстан">Казахстан</option>
+                <option value="Туманный Альбион">Туманный Альбион</option>
+                <option value="Пиндосия">Пиндосия</option>
+        <!-- Страны добавляются здесь -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="city">Город:</label>
+      <select id="city" name="city" required>
+        <option value="">Выберите город</option>
+        <!-- Города добавляются динамически в зависимости от выбранной страны -->
+      </select>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label>Skills:</label>
+      <label><input type="checkbox" id="html" name="skills" value="HTML">HTML</label>
+      <label><input type="checkbox" id="css" name="skills" value="CSS">CSS</label>
+      <label><input type="checkbox" id="js" name="skills" value="JavaScript">JavaScript</label>
+      <label><input type="checkbox" id="php" name="skills" value="PHP">PHP</label>
+      <label><input type="checkbox" id="c++" name="skills" value="C++">C++</label>
+      <label><input type="checkbox" id="java" name="skills" value="Java">JAVA</label>
+      <label><input type="checkbox" id="c#" name="skills" value="C#">C#</label>
+      <label><input type="checkbox" id="python" name="skills" value="Python">PYTHON</label>
+      <label><input type="checkbox" id="bdsm" name="skills" value="BDSM">BDSM</label>
+      <label><input type="checkbox" id="nsfw" name="skills" value="NSFW">NSFW</label>
+      <!-- Добавьте другие навыки по желанию -->
+    </div>
+
+    <button type="submit">Сохранить</button>
+
+  </form>
+</div>
+
+<div id="result"></div>
+
+<script>
+document.getElementById('country').onchange = function() {
+    updateCities(this, 'city');
+};
+
+
+document.getElementById('registrationForm').onsubmit = function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы для демонстрации
+    confirmData();
+};
+
+function confirmData() {
+    if (confirm("Проверьте пожалуйста, корректно ли Вы ввели свои данные")) {
+        displayFormData();
+    }
+}
+
+function displayFormData() {
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var birthdate = document.getElementById('birthdate').value;
+    var gender = document.querySelector('input[name="gender"]:checked').value;
+    var country = document.getElementById('country').value;
+    var city = document.getElementById('city').value;
+    var skills = Array.from(document.querySelectorAll('input[name="skills"]:checked')).map(el => el.value).join(", ");
+
+    var resultHTML = `<div class="result-container"><h2>Результат</h2>
+                      <table>
+                        <tr><td>Имя:</td><td>${firstName}</td></tr>
+                        <tr><td>Фамилия:</td><td>${lastName}</td></tr>
+                        <tr><td>Дата рождения:</td><td>${birthdate}</td></tr>
+                        <tr><td>Пол:</td><td>${gender}</td></tr>
+                        <tr><td>Страна:</td><td>${country}</td></tr>
+                        <tr><td>Город:</td><td>${city}</td></tr>
+                        <tr><td>Skills:</td><td>${skills}</td></tr>
+                      </table></div>`;
+
+    var resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = resultHTML;
+}
+
+
+var countries = {
+    "Россия": ["Москва", "Санкт-Петербург", "Новосибирск"],
+    "Казахстан": ["Алмата", "Астана", "Караганда", "Павлодар"],
+    "Туманный Альбион": ["Г|ондон", "БирминГЕЙм", "Лидс"],
+    "Пиндосия": ["Нью-Йорк", "Лос-Анджелес", "Чикаго"],
+    // Можем добавить еще больше стран и городов по аналогии
+};
+
+function updateCities(countrySelect, citySelectId) {
+    var selectedCountry = countrySelect.value;
+    var citySelect = document.getElementById(citySelectId);
+    citySelect.innerHTML = '<option value="">Выберите город</option>';
+
+    if (!selectedCountry || !countries[selectedCountry]) return;
+
+    countries[selectedCountry].forEach(function(city) {
+        var option = new Option(city, city);
+        citySelect.add(option);
+    });
+}
+
+</script>
+
+</body>
+</html>
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+⚠️ Вот более ОДЕКВАТНЫЙ ВАРИАНТ ⚠️
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрационная форма</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+  .form-container, .result-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="date"],
+  .form-group select,
+  .form-group input[type="radio"],
+  .form-group input[type="checkbox"] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  .radio-group, .checkbox-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .radio-group label, .checkbox-group label {
+    margin-right: 20px;
+    white-space: nowrap;
+  }
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .result-container h2 {
+    text-align: center;
+    color: #007bff;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <form id="registrationForm">
+    <div class="form-group">
+      <label for="firstName">Имя:</label>
+      <input type="text" id="firstName" name="firstName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Фамилия:</label>
+      <input type="text" id="lastName" name="lastName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="birthdate">Дата рождения:</label>
+      <input type="date" id="birthdate" name="birthdate" required>
+    </div>
+
+    <div class="form-group radio-group">
+      <label>Пол:</label>
+      <label><input type="radio" id="male" name="gender" value="Мужской" required>Мужской</label>
+      <label><input type="radio" id="female" name="gender" value="Женский">Женский</label>
+    </div>
+
+    <div class="form-group">
+      <label for="country">Страна:</label>
+      <select id="country" name="country" required>
+        <option value="">Выберите страну</option>
+        <option value="Россия">Россия</option>
+        <option value="Казахстан">Казахстан</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="city">Город:</label>
+      <select id="city" name="city" required>
+        <option value="">Выберите город</option>
+      </select>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label>Skills:</label>
+      <label><input type="checkbox" name="skills" value="HTML">HTML</label>
+      <label><input type="checkbox" name="skills" value="CSS">CSS</label>
+      <label><input type="checkbox" name="skills" value="JavaScript">JavaScript</label>
+    </div>
+
+    <button type="submit">Сохранить</button>
+  </form>
+</div>
+
+<div id="result"></div>
+
+<script>
+document.getElementById('country').onchange = function() {
+    var citiesByCountry = {
+      "Россия": ["Москва", "Санкт-Петербург", "Новосибирск"],
+      "Казахстан": ["Алматы", "Астана", "Шымкент"]
+    };
+    var citySelect = document.getElementById('city');
+    citySelect.innerHTML = '<option value="">Выберите город</option>';
+    (citiesByCountry[this.value] || []).forEach(function(city) {
+      citySelect.options.add(new Option(city, city));
+    });
+};
+
+document.getElementById('registrationForm').onsubmit = function(event) {
+    event.preventDefault();
+    if (confirm("Проверьте пожалуйста, корректно ли Вы ввели свои данные")) {
+        displayFormData();
+    }
+};
+
+function displayFormData() {
+    var formData = new FormData(document.getElementById('registrationForm'));
+    var resultContainer = document.createElement('div');
+    resultContainer.className = 'result-container';
+
+    var resultHTML = '<h2>Результат</h2><table>';
+    formData.forEach(function(value, key) {
+        resultHTML += `<tr><td>${escapeHTML(key)}:</td><td>${escapeHTML(value)}</td></tr>`;
+    });
+    resultHTML += '</table>';
+    resultContainer.innerHTML = resultHTML;
+
+    document.getElementById('result').appendChild(resultContainer);
+}
+
+function escapeHTML(text) {
+  var element = document.createElement('div');
+  element.appendChild(document.createTextNode(text));
+  return element.innerHTML;
+}
+</script>
+
+</body>
+</html>
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+⚠️ Разбор варианта кода:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+🚀 Шаг № 1: Основная структура HTML
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода:
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрационная форма</title>
+   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -- Стили опущены для краткости -- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+</head>
+<body>
+   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -- Содержимое body опущено для краткости -- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+</body>
+</html>
+
+Описание:
+Эта структура определяет основу веб-страницы, включая кодировку символов,
+настройки вьюпорта для корректного отображения на мобильных устройствах и заголовок страницы.
+
+🚀 Шаг № 2: Оформление формы
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода (стили):
+
+.form-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: auto;
+}
+
+Описание:
+CSS-правила для .form-container задают внешний вид контейнера формы, включая фон, тень, скругление углов,
+отступы и максимальную ширину. Цель — создать аккуратный и привлекательный блок для элементов формы.
+
+🚀 Шаг № 3: Создание и стилизация элементов формы
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода (HTML):
+
+<div class="form-group">
+  <label for="firstName">Имя:</label>
+  <input type="text" id="firstName" name="firstName" required>
+</div>
+
+Описание:
+Элементы формы организованы в группы (form-group) для лучшей структуризации.
+Каждая группа содержит метку (label) и поле ввода (input). В этом примере поле предназначено для ввода имени.
+
+🚀 Шаг № 4: Валидация и отправка формы
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода (JavaScript):
+
+document.getElementById('registrationForm').onsubmit = function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы
+    confirmData();
+};
+
+Описание:
+Этот JavaScript код препятствует стандартному поведению отправки формы,
+что позволяет сначала выполнить валидацию данных на клиентской стороне.
+Функция confirmData() может быть использована для проверки введенных данных перед их отправкой.
+
+🚀 Шаг № 5: Динамическое добавление городов в зависимости от выбранной страны
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода (JavaScript):
+
+function updateCities(countrySelect, citySelectId) {
+    var selectedCountry = countrySelect.value;
+    var citySelect = document.getElementById(citySelectId);
+    citySelect.innerHTML = '<option value="">Выберите город</option>';
+    // Логика добавления городов
+}
+
+Описание:
+Эта функция обновляет список городов в соответствии с выбранной страной.
+Она очищает текущий список городов и добавляет новые опции на основе выбора пользователя.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+📝 Заключение:
+
+В сложившийся ситуации, я попытался выявить все ключевые аспекты кода для детального рассмотрения, игнорируя "шутливые",
+специфические детали, и сосредоточились на общих принципах создания и стилизации веб-форм,
+а также на логике JavaScript для управления формой. Тем самым, как мне кажется, это должно дать представление о
+структуре и функциональности кода без углубления в детали.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->

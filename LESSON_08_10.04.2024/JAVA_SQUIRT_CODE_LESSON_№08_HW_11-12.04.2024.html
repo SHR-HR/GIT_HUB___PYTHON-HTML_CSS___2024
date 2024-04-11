@@ -1,0 +1,248 @@
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+Дата выполнения 11 и 12 АПРЕЛЯ 2024 года.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+Домашняя работа
+# ~ ~ ~ ~ ~ ~ ~
+
+Курс: Разработка Web приложений на Python, с применением фреймворка Django
+Дисциплина: Разработка клиентских сценариев с использованием JavaScript
+
+Домашняя работа №8: Формы, регулярные выражения.
+
+
+
+Выполните следующие задание:
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Задание:
+# ~ ~ ~ ~
+
+🚀 Создать html-страницу с формой для ввода стилизованного текста.
+🚀 После заполнения формы, вывести текст на экран в соответствии с указанными стилями.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!--
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+⚠️ Вариант кода №2.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Форма стилизации текста (Вариант №2)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+
+  .form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .form-group input[type="text"], .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  #output {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+  }
+
+  .controls {
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Введите и стилизуйте текст</h2>
+  <form id="textForm">
+    <div class="controls">
+      <label><input type="checkbox" id="bold"> Жирный</label>
+      <label><input type="checkbox" id="italic"> Курсив</label>
+      <label><input type="checkbox" id="underline"> Подчёркнутый</label>
+      <label><input type="radio" name="align" id="left" value="left" checked> Выравнивание влево</label>
+      <label><input type="radio" name="align" id="center" value="center"> По центру</label>
+      <label><input type="radio" name="align" id="right" value="right"> Выравнивание вправо</label>
+    </div>
+    <div class="form-group">
+      <textarea id="userText" rows="4" placeholder="Введите ваш текст здесь..."></textarea>
+    </div>
+    <button type="button" onclick="applyStyles()">Показать стилизованный текст</button>
+  </form>
+  <div id="output">Стилизованный текст будет отображен здесь.</div>
+</div>
+
+<script>
+function applyStyles() {
+  var text = document.getElementById('userText').value;
+  var output = document.getElementById('output');
+  output.style.fontWeight = document.getElementById('bold').checked ? 'bold' : 'normal';
+  output.style.fontStyle = document.getElementById('italic').checked ? 'italic' : 'normal';
+  output.style.textDecoration = document.getElementById('underline').checked ? 'underline' : 'none';
+  var align = document.querySelector('input[name="align"]:checked').value;
+  output.style.textAlign = align;
+  output.textContent = text;
+}
+</script>
+
+</body>
+</html>
+<!--
+#               ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ПОГНАЛИ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~               #
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 1: Основная структура HTML
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода:
+
+<div class="form-container">
+  <h2>Введите и стилизуйте текст</h2>
+  <form id="textForm">
+    ...
+  </form>
+  <div id="output">Стилизованный текст будет отображен здесь.</div>
+</div>
+
+Описание:
+
+.form-container: Контейнер для всей формы, который центрирует её на странице и добавляет визуальные стили,
+такие как фон, тени и радиусы скругления.
+h2: Заголовок формы, предоставляющий пользователю контекст использования формы.
+form: Форма, содержащая элементы управления для ввода и стилизации текста.
+#output: Блок для отображения результата применения стилей к тексту.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 2: Стилизация с помощью CSS
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода CSS:
+
+.form-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: auto;
+}
+
+.form-group, .controls {
+  margin-bottom: 20px;
+}
+
+.form-group input[type="text"], .form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#output {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+Описание:
+
+Стили определяют внешний вид элементов формы, включая кнопки, поля для ввода и контейнер вывода.
+Особое внимание уделяется интерактивным элементам, таким как кнопки,
+изменение их цвета при наведении курсора улучшает пользовательский опыт.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 3: JavaScript для динамической стилизации
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода JavaScript:
+
+function applyStyles() {
+  var text = document.getElementById('userText').value;
+  var output = document.getElementById('output');
+  output.style.fontWeight = document.getElementById('bold').checked ? 'bold' : 'normal';
+  output.style.fontStyle = document.getElementById('italic').checked ? 'italic' : 'normal';
+  output.style.textDecoration = document.getElementById('underline').checked ? 'underline' : 'none';
+  var align = document.querySelector('input[name="align"]:checked').value;
+  output.style.textAlign = align;
+  output.textContent = text;
+}
+
+Описание:
+
+applyStyles: Функция вызывается при нажатии на кнопку "Показать стилизованный текст".
+Она считывает значения из формы и применяет их к блоку #output, изменяя вес шрифта, стиль,
+декорацию и выравнивание в зависимости от состояния чекбоксов и радио кнопок.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+⚠️ Шаг № 4: Отзывчивый дизайн
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+Пример кода CSS:
+
+@media (max-width: 768px) {
+  .form-container {
+    width: 90%;
+    padding: 10px;
+  }
+}
+
+Описание:
+
+Медиа-запросы адаптируют форму под меньшие экраны, уменьшая ширину и паддинги контейнера.
+Это обеспечивает удобное отображение и использование формы на мобильных устройствах.
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+📝 Этот тщательный разбор представляет ваш код как функциональное целое,
+позволяя пользователю интерактивно вводить текст, выбирать стили и немедленно видеть результаты своих
+действий на веб-странице.
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+-->

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрационная форма</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        input, select, button {
+            width: calc(100% - 22px); /* 22px - padding + border */
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+        }
+        .error {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="user_register_form" onsubmit="return validateAndSubmit();">
+        <div><label for="user_f_name">Имя:</label><input id="user_f_name" type="text" required /><div id="fname_error" class="error"></div></div>
+        <div><label for="user_l_name">Фамилия:</label><input id="user_l_name" type="text" required /><div id="lname_error" class="error"></div></div>
+        <div><label for="user_m_name">Отчество:</label><input id="user_m_name" type="text" /><div id="mname_error" class="error"></div></div>
+        <div><label for="user_email">Email:</label><input id="user_email" type="email" required /><div id="email_error" class="error"></div></div>
+        <div><label for="user_phone">Телефон:</label><input id="user_phone" type="tel" required /><div id="phone_error" class="error"></div></div>
+        <div><label for="user_country">Страна:</label><input id="user_country" type="text" required /><div id="country_error" class="error"></div></div>
+        <div><label for="user_city">Город:</label><input id="user_city" type="text" required /><div id="city_error" class="error"></div></div>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <script>
+        function validateAndSubmit() {
+            const nameRegex = /^[А-Яа-яA-Za-z-]+$/;
+            const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            const phoneRegex = /^\+?\d{10,15}$/;
+            const basicTextRegex = /^[А-Яа-яA-Za-z\s-]+$/;
+
+            const showError = (elementId, message) => {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = message;
+            };
+
+            const clearError = (elementId) => {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = '';
+            };
+
+            const validateField = (regex, value, errorId, errorMessage) => {
+                if (!regex.test(value)) {
+                    showError(errorId, errorMessage);
+                    return false;
+                }
+                clearError(errorId);
+                return true;
+            };
+
+            let isValid = true;
+
+            isValid = validateField(nameRegex, document.getElementById('user_f_name').value, 'fname_error', 'Введите корректное имя.') && isValid;
+            isValid = validateField(nameRegex, document.getElementById('user_l_name').value, 'lname_error', 'Введите корректную фамилию.') && isValid;
+            // Отчество необязательно и может быть пустым, поэтому проверяем только если оно заполнено
+            const userMName = document.getElementById('user_m_name').value;
+            if (userMName) {
+                isValid = validateField(nameRegex, userMName, 'mname_error', 'Введите корректное отчество.') && isValid;
+            }
+            isValid = validateField(emailRegex, document.getElementById('user_email').value, 'email_error', 'Введите корректный email.') && isValid;
+            isValid = validateField(phoneRegex, document.getElementById('user_phone').value, 'phone_error', 'Введите корректный номер телефона.') && isValid;
+            isValid = validateField(basicTextRegex, document.getElementById('user_country').value, 'country_error', 'Введите корректное название страны.') && isValid;
+            isValid = validateField(basicTextRegex, document.getElementById('user_city').value, 'city_error', 'Введите корректное название города.') && isValid;
+
+            if (isValid) {
+                alert('Форма успешно валидирована!');
+
+                console.log("Форма успешно валидирована. Данные:");
+                console.log("Имя:", document.getElementById('user_f_name').value);
+                console.log("Фамилия:", document.getElementById('user_l_name').value);
+                console.log("Отчество:", document.getElementById('user_m_name').value);
+                console.log("Email:", document.getElementById('user_email').value);
+                console.log("Телефон:", document.getElementById('user_phone').value);
+                console.log("Страна:", document.getElementById('user_country').value);
+                console.log("Город:", document.getElementById('user_city').value);
+
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
