@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Погода</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .weather-info { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Узнайте погоду в вашем городе</h1>
+    <input type="text" id="latitude" placeholder="Введите широту">
+    <input type="text" id="longitude" placeholder="Введите долготу">
+    <button onclick="fetchWeather()">Получить погоду</button>
+
+    <div class="weather-info" id="weatherInfo"></div>
+
+    <script>
+        function fetchWeather() {
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            const apiURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+
+            fetch(apiURL)
+                .then(response => response.json())
+                .then(data => {
+                    displayWeather(data);
+                })
+                .catch(error => {
+                    console.error('Ошибка при получении данных:', error);
+                    alert('Не удалось получить данные о погоде. Проверьте введенные координаты.');
+                });
+        }
+
+        function displayWeather(data) {
+            const weather = data.current_weather;
+            const date = new Date().toLocaleDateString('ru-RU');
+            const weatherInfo = document.getElementById('weatherInfo');
+            weatherInfo.innerHTML = `
+                <h2>Погода сейчас</h2>
+                <p>Дата: ${date}</p>
+                <p>Город: Неизвестен (показаны только координаты)</p>
+                <p>Описание погоды: ${weather.weathercode}</p> <!-- нужна таблица кодов погоды -->
+                <p>Текущая температура: ${weather.temperature}°C</p>
+                <p>Мин температура: неизвестно</p> <!-- API не предоставляет эту информацию напрямую -->
+                <p>Макс температура: неизвестно</p> <!-- API не предоставляет эту информацию напрямую -->
+                <p>Скорость ветра: ${weather.windspeed} км/ч</p>
+            `;
+        }
+    </script>
+</body>
+</html>
