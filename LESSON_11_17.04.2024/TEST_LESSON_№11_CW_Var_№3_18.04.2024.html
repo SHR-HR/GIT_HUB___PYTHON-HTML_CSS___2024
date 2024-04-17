@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сравнение депозита и рассрочки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4d00ff, #e600ff);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .section {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            width: 50%;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 90%;
+        }
+        button {
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #777;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сравнение депозита и рассрочки</h1>
+    <div class="container">
+        <div class="section" id="deposit_section">
+            <h2>Депозит</h2>
+            <input type="number" id="deposit_amount" placeholder="Сумма депозита (тенге)">
+            <input type="number" id="ef_percent" placeholder="Годовая процентная ставка (%)">
+            <select id="deposit_period">
+                <option value="6">6 месяцев</option>
+                <option value="12">12 месяцев</option>
+                <option value="24">24 месяца</option>
+            </select>
+            <button onclick="calculateInterest()">Рассчитать проценты</button>
+        </div>
+        <div class="section" id="installment_section">
+            <h2>Рассрочка</h2>
+            <input type="number" id="purchase_amount" placeholder="Сумма покупки (тенге)">
+            <input type="number" id="initial_payment" placeholder="Первоначальный взнос (тенге)">
+            <select id="installment_period">
+                <option value="6">6 месяцев</option>
+                <option value="12">12 месяцев</option>
+                <option value="24">24 месяца</option>
+            </select>
+            <button onclick="compareInstallment()">Рассчитать рассрочку</button>
+        </div>
+    </div>
+    <div id="results" class="result"></div>
+
+    <script>
+        function calculateInterest() {
+            const depositAmount = parseFloat(document.getElementById('deposit_amount').value);
+            const ef_percent = parseFloat(document.getElementById('ef_percent').value);
+            const depositPeriod = parseInt(document.getElementById('deposit_period').value);
+            const monthlyRate = Math.round((Math.pow((ef_percent / 100 + 1), 1 / 12) - 1) * 10000) / 10000;
+            let endCapital = depositAmount;
+            let interestAccumulated = 0;
+            for (let i = 0; i < depositPeriod; i++) {
+                endCapital += endCapital * monthlyRate;
+                interestAccumulated += endCapital * monthlyRate;
+            }
+            document.getElementById('results').innerHTML = `Конечная сумма на депозите: ${endCapital.toFixed(2)} тенге`;
+        }
+
+        function compareInstallment() {
+            const purchaseAmount = parseFloat(document.getElementById('purchase_amount').value);
+            const initialPayment = parseFloat(document.getElementById('initial_payment').value);
+            const installmentPeriod = parseInt(document.getElementById('installment_period').value);
+            const monthlyPayment = (purchaseAmount - initialPayment) / installmentPeriod;
+            document.getElementById('results').innerHTML += `<br>Ежемесячный платёж за рассрочку: ${monthlyPayment.toFixed(2)} тенге`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сравнение депозита и рассрочки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4d00ff, #e600ff);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            transition: background-color 2s ease-in-out;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .section {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            width: 50%;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 90%;
+        }
+        button {
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #777;
+        }
+        .result, .result table {
+            margin-top: 20px;
+            font-size: 16px;
+            width: 100%;
+            text-align: left;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #FFF;
+            padding: 8px;
+            text-align: left;
+        }
+        .scrollable-table {
+            max-height: 200px;
+            overflow: auto;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сравнение депозита и рассрочки</h1>
+    <div class="container">
+        <div class="section">
+            <h2>Депозит</h2>
+            <input type="number" id="deposit_amount" placeholder="Сумма депозита (тенге)">
+            <input type="number" id="ef_percent" placeholder="Годовая процентная ставка (%)">
+            <select id="deposit_period">
+                <option value="6">6 месяцев</option>
+                <option value="12">12 месяцев</option>
+                <option value="24">24 месяца</option>
+            </select>
+            <button onclick="calculateInterest()">Рассчитать</button>
+            <div id="deposit_results" class="result"></div>
+        </div>
+        <div class="section">
+            <h2>Рассрочка</h2>
+            <input type="number" id="purchase_amount" placeholder="Сумма покупки (тенге)">
+            <input type="number" id="initial_payment" placeholder="Первоначальный платеж (тенге)">
+            <select id="installment_period">
+                <option value="6">6 месяцев</option>
+                <option value="12">12 месяцев</option>
+                <option value="24">24 месяца</option>
+            </select>
+            <button onclick="compareInstallment()">Рассчитать</button>
+            <div id="installment_results" class="result"></div>
+        </div>
+    </div>
+
+    <div id="footer" class="footer"></div>
+
+    <script>
+        function calculateInterest() {
+            const depositAmount = parseFloat(document.getElementById('deposit_amount').value);
+            const ef_percent = parseFloat(document.getElementById('ef_percent').value);
+            const depositPeriod = parseInt(document.getElementById('deposit_period').value);
+            const monthlyRate = Math.round((Math.pow((ef_percent / 100 + 1), 1 / 12) - 1) * 10000) / 10000;
+            let endCapital = depositAmount;
+            let interestAccumulated = 0;
+            let monthlyDepositDetails = `<table><tr><th>Месяц</th><th>Доход</th><th>Конечный капитал</th></tr>`;
+
+            for (let i = 0; i < depositPeriod; i++) {
+                let monthlyInterest = endCapital * monthlyRate;
+                endCapital += monthlyInterest;
+                interestAccumulated += monthlyInterest;
+                monthlyDepositDetails += `<tr><td>${i + 1}</td><td>${monthlyInterest.toFixed(2)}</td><td>${endCapital.toFixed(2)}</td></tr>`;
+            }
+            monthlyDepositDetails += `</table>`;
+            document.getElementById('deposit_results').innerHTML = monthlyDepositDetails;
+
+            const footer = document.getElementById('footer');
+            footer.innerHTML = `
+                <p>Рекомендация: Проверьте, покрывает ли доход от депозита стоимость рассрочки.</p>
+            `;
+        }
+
+        function compareInstallment() {
+            const purchaseAmount = parseFloat(document.getElementById('purchase_amount').value);
+            const initialPayment = parseFloat(document.getElementById('initial_payment').value);
+            const installmentPeriod = parseInt(document.getElementById('installment_period').value);
+            let monthlyInstallmentDetails = `<table><tr><th>Месяц</th><th>Платеж</th></tr>`;
+            let monthlyPayment = (purchaseAmount - initialPayment) / installmentPeriod;
+
+            for (let j = 0; j < installmentPeriod; j++) {
+                monthlyInstallmentDetails += `<tr><td>${j + 1}</td><td>${monthlyPayment.toFixed(2)}</td></tr>`;
+            }
+            monthlyInstallmentDetails += `</table>`;
+            document.getElementById('installment_results').innerHTML = monthlyInstallmentDetails;
+
+            const footer = document.getElementById('footer');
+            footer.innerHTML = `
+                <p>Вы возможно можете позволить себе покупку в рассрочку.</p>
+                <p>Рекомендация: Но лучше подумайте 100 раз. И если не "потяните"... то, рассмотрите дополнительные
+                варианты финансирования и выберите наиболее выгодный.</p>
+            `;
+        }
+    </script>
+</body>
+</html>

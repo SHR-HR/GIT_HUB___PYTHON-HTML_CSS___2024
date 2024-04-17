@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рассрочка или депозит?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4d00ff, #e600ff);
+            margin: 0;
+            color: #ffffff;
+        }
+        input, button, select {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 250px;
+        }
+        button {
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #777;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Рассрочка или депозит?</h1>
+    <div>
+        <label for="deposit_amount">Сумма депозита (тенге):</label>
+        <input type="number" id="deposit_amount" placeholder="Введите сумму">
+    </div>
+    <div>
+        <label for="ef_percent">Годовая процентная ставка (%):</label>
+        <input type="number" id="ef_percent" placeholder="Введите процентную ставку">
+    </div>
+    <div>
+        <label for="deposit_period">Период вложения (месяцы):</label>
+        <select id="deposit_period">
+            <option value="6">6 месяцев</option>
+            <option value="12">12 месяцев</option>
+            <option value="24">24 месяца</option>
+        </select>
+    </div>
+    <div>
+        <input type="checkbox" id="initial_payment">
+        <label for="initial_payment">Первоначальный взнос отсутствует</label>
+    </div>
+    <button onclick="calculateInterest()">Рассчитать проценты</button>
+
+    <div id="results" class="result"></div>
+
+    <script>
+        function calculateInterest() {
+            const depositAmount = parseFloat(document.getElementById('deposit_amount').value);
+            const ef_percent = parseFloat(document.getElementById('ef_percent').value);
+            const depositPeriod = parseInt(document.getElementById('deposit_period').value);
+            const initialPayment = document.getElementById('initial_payment').checked;
+            const monthlyRate = Math.round((Math.pow((ef_percent / 100 + 1), 1 / 12) - 1) * 10000) / 10000;
+
+            let endCapital = depositAmount;
+            let monthlyInterestPayments = [];
+            for (let i = 0; i < depositPeriod; i++) {
+                endCapital += endCapital * monthlyRate;
+                monthlyInterestPayments.push(endCapital * monthlyRate);
+            }
+
+            let results = document.getElementById('results');
+            let installmentPlan = depositAmount / (initialPayment ? (depositPeriod - 1) : depositPeriod);
+            let canAfford = monthlyInterestPayments[0] > installmentPlan;
+
+            results.innerHTML = `
+                <p>Ежемесячный платеж, если взять в рассрочку: ${installmentPlan.toFixed(2)} тенге</p>
+                <p>Первый ежемесячный доход от депозита: ${monthlyInterestPayments[0].toFixed(2)} тенге</p>
+                <p>Конечная сумма на депозите после ${depositPeriod} месяцев: ${endCapital.toFixed(2)} тенге</p>
+                <p>${canAfford ? 'Вы можете позволить себе покупку в рассрочку, используя доход от депозита.' : 'Доход от депозита не покрывает месячный платеж за покупку.'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

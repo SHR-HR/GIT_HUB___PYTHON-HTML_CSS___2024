@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор сложных процентов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4d00ff, #e600ff);
+            margin: 0;
+            color: #ffffff;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 250px;
+        }
+        button {
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #777;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Калькулятор сложных процентов</h1>
+    <div>
+        <label for="deposit_amount">Сумма депозита (тенге):</label>
+        <input type="number" id="deposit_amount" placeholder="Введите сумму депозита">
+    </div>
+    <div>
+        <label for="deposit_period">Период вложения (месяцы):</label>
+        <input type="number" id="deposit_period" placeholder="Введите период в месяцах">
+    </div>
+    <button onclick="calculateInterest()">Рассчитать проценты</button>
+
+    <div id="results" class="result"></div>
+
+    <script>
+        function calculateInterest() {
+            const depositAmount = parseFloat(document.getElementById('deposit_amount').value);
+            const depositPeriod = parseInt(document.getElementById('deposit_period').value);
+            const ef_percent = 14; // Эффективная годовая ставка 14%
+            const monthlyRate = Math.round((Math.pow((ef_percent / 100 + 1), 1 / 12) - 1) * 10000) / 10000;
+
+            let results = document.getElementById('results');
+            let endCapital = depositAmount;
+            let interestAccumulated = 0;
+
+            for (let i = 0; i < depositPeriod; i++) {
+                let monthlyInterest = endCapital * monthlyRate;
+                endCapital += monthlyInterest;
+                interestAccumulated += monthlyInterest;
+            }
+
+            // Ежедневный, ежемесячный, ежегодный, за два года доход
+            const dailyInterest = (depositAmount * monthlyRate) / 30;
+            const yearlyInterest = interestAccumulated;
+            const twoYearInterest = interestAccumulated * 2; // Предполагается, что ставка и капитал не меняются
+
+            results.innerHTML = `
+                <p>Ежедневный доход: ${dailyInterest.toFixed(2)} тенге</p>
+                <p>Ежемесячный доход: ${(monthlyRate * depositAmount).toFixed(2)} тенге</p>
+                <p>Ежегодный доход: ${yearlyInterest.toFixed(2)} тенге</p>
+                <p>Доход за два года: ${twoYearInterest.toFixed(2)} тенге</p>
+                <p>Конечная сумма за ${depositPeriod} месяцев: ${endCapital.toFixed(2)} тенге</p>
+            `;
+        }
+    </script>
+</body>
+</html>
