@@ -1,0 +1,87 @@
+import psycopg2
+
+
+
+try:
+    connection = psycopg2.connect(
+        database="postgres",
+        host="localhost",
+        user="postgres",
+        password="admin", port="5432"
+    )
+
+    cursor = connection.cursor()
+except:
+    print("error")
+
+
+
+# cursor.execute("DROP TABLE users_12345")
+query : str = """
+    CREATE TABLE IF NOT EXISTS users_12345 (
+        id serial PRIMARY KEY,
+        login varchar(32) NOT NULL,
+        password varchar(32) NOT NULL,
+        balance DECIMAL
+    );
+"""
+
+cursor.execute(query=query)
+connection.commit()
+
+
+
+query2 : str = """
+    BEGIN;
+
+    INSERT INTO users_12345
+    (login, password, balance)
+    VALUES ('first_user', '12345', 0.0);
+
+    COMMIT;
+
+
+"""
+
+cursor.execute(query=query2)
+
+query3 : str = """
+    BEGIN;
+
+    INSERT INTO users_12345
+    (login, password, balance)
+    VALUES ('second_user', '0123456789', 0.0);
+
+    UPDATE users_12345 SET balance = balance + 1000
+    WHERE login='second_user';
+
+    UPDATE users_12345 SET balance = balance + 500
+    WHERE login='first_user';
+
+    UPDATE users_12345 SET balance = balance - 500
+    WHERE login='second_user';
+
+    COMMIT;
+
+
+"""
+
+cursor.execute(query=query3)
+
+
+query4 : str = """
+    BEGIN;
+    
+    UPDATE users_12345 SET login = 'changed_login'
+    WHERE login='first_user';
+    
+    ROLLBACK;
+"""
+cursor.execute(query=query4)
+
+get_users_query : str = """
+    SELECT * FROM users_12345;
+"""
+cursor.execute(query=get_users_query)
+data : list[tuple] = cursor.fetchall()
+print(data)
